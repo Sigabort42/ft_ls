@@ -10,20 +10,58 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "includes/ft_ls.h"
+
+int	main(int argc, char **argv)
+{
+	t_env	env;
+
+	env.flags = 0;
+	if (argc < 1)
+		return (0);
+	ft_strcpy(env.flags_stock, "adfgGlrRtu");
+	ft_parse(argv, &env);
+	ft_printf("%b\n", env.flags);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 #include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>
 #include <pwd.h>
+#include <grp.h>
+#include <time.h>
 
 int	main(int argc, char **argv)
 {
 	struct stat		s;
 	struct passwd	*pass;
+	struct group	*gr;
 	int				ret;
 
 	if (argc < 2)
 		return (0);
-	printf("lol|%s|\n", argv[1]);
 	if ((stat(argv[1], &s)) == -1)
 	{
 		perror("stat");
@@ -56,6 +94,12 @@ int	main(int argc, char **argv)
     printf("\n");
 	printf("Nombre de liens : %d\n", s.st_nlink);
 	pass = getpwuid(s.st_uid);
+	gr = getgrgid(s.st_gid);
 	printf("Proprietaire : %s\n", pass->pw_name);
+	printf("Groupe : %s\n", gr->gr_name);
+	printf("Taille : %lld\n", s.st_size);
+	char *str = ctime(&s.st_mtime);
+	printf("Date de derniere modification : %.12s\n", &str[4]);
 	return (0);
 }
+*/
