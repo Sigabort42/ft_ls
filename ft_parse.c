@@ -22,7 +22,7 @@ static void	ft_flags_bit(char c, t_env *env)
 		env->flags |= (1 << 8);
 }
 
-void		ft_parse(char **av, t_env *env)
+int		ft_parse(char **av, t_env *env)
 {
 	int	i;
 	int	j;
@@ -35,23 +35,22 @@ void		ft_parse(char **av, t_env *env)
 		while (av[i][j])
 		{
 			if (av[i][j] != '-')
-				return ;
+				return (i);
 			while (av[i][j] && av[i][j] != ' ')
 			{
 				j++;
-				if ((c = ft_strchr(env->flags_stock, av[i][j])))
-					ft_flags_bit(c[0], env);
-				else
+				if (!(c = ft_strchr(env->flags_stock, av[i][j])))
 				{
 					ft_putstr("ls: illegal option -- ");
 					write(1, &av[i][j], 1);
 					ft_putstr("\nusage: ls [-adfgGlrRtu] [file ...]\n");
 					exit(EXIT_FAILURE);
 				}
+				ft_flags_bit(c[0], env);
 			}
-			j++;
 		}
+		j = 0;
 		i++;
 	}
-	printf("%d\n", env->flags);
+	return (0);
 }

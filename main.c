@@ -15,13 +15,14 @@
 int	main(int argc, char **argv)
 {
 	t_env	env;
+	int	i;
 
 	env.flags = 0;
 	if (argc < 1)
 		return (0);
 	ft_strcpy(env.flags_stock, "adfgGlrRtu");
-	ft_parse(argv, &env);
-	ft_printf("%b\n", env.flags);
+	i = ft_parse(argv, &env);
+	ft_printf("%b %s\n", env.flags, argv[i]);
 }
 
 
