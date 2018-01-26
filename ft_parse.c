@@ -22,6 +22,14 @@ static void	ft_flags_bit(char c, t_env *env)
 		env->flags |= (1 << 8);
 }
 
+static void	ft_affiche_erreur(char c)
+{
+	ft_putstr("ls: illegal option -- ");
+	write(1, &c, 1);
+	ft_putstr("\nusage: ls [-adfgGlrRtu] [file ...]\n");
+	exit(EXIT_FAILURE);
+}
+
 int		ft_parse(char **av, t_env *env)
 {
 	int	i;
@@ -40,12 +48,7 @@ int		ft_parse(char **av, t_env *env)
 			{
 				j++;
 				if (!(c = ft_strchr(env->flags_stock, av[i][j])))
-				{
-					ft_putstr("ls: illegal option -- ");
-					write(1, &av[i][j], 1);
-					ft_putstr("\nusage: ls [-adfgGlrRtu] [file ...]\n");
-					exit(EXIT_FAILURE);
-				}
+					ft_affiche_erreur(av[i][j]);
 				ft_flags_bit(c[0], env);
 			}
 		}
