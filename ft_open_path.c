@@ -3,13 +3,14 @@
 static void	ft_affiche(t_env *env)
 {
 	t_liste *tmp;
+	int	total;
 
 	if (!env->lst_first)
 		exit(EXIT_FAILURE);
 	tmp = env->lst_first;
 	while (tmp)
 	{
-		ft_printf("%s%5d %s%7s%7d %s %s\n", tmp->law, 1, tmp->name_root, tmp->group, tmp->size, tmp->date, tmp->path_name);
+		ft_printf("%s%5u %s%7s%7u %s %s\n", tmp->law, tmp->size_lnk, tmp->name_root, tmp->group, tmp->size, tmp->date, tmp->path_name);
 		tmp = tmp->next;
 	}
 }

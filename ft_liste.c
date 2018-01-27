@@ -42,6 +42,7 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	new->law = ft_law_file(env->s.st_mode, law);
 	new->name_root = env->pass->pw_name;
 	new->group = env->grp->gr_name;
+	new->size_lnk = ;
 	new->size = env->s.st_size;
 	new->date = ctime(&env->s.st_mtime);
 	new->date[24] = 0; 

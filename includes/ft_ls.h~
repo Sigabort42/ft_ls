@@ -13,8 +13,7 @@ typedef struct		s_liste
 	char		*law;
 	char		*name_root;
 	char		*group;
-	unsigned int	size_lnk;
-	unsigned int	size;
+	int		size;
 	char		*date;
 	char		*path_name;
 	struct s_liste	*next;
