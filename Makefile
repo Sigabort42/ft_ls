@@ -5,6 +5,8 @@ CC	=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 
 SRCS	=	ft_parse.c \
+		ft_open_path.c \
+		ft_liste.c \
 
 OBJS	=	$(SRCS:.c=.o)
 
