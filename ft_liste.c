@@ -42,10 +42,10 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	new->law = ft_law_file(env->s.st_mode, law);
 	new->name_root = env->pass->pw_name;
 	new->group = env->grp->gr_name;
-	new->size_lnk = ;
+	new->size_lnk = env->s.st_nlink;
 	new->size = env->s.st_size;
 	new->date = ctime(&env->s.st_mtime);
-	new->date[24] = 0; 
+	new->date[24] = 0;
 	new->path_name = ft_strdup(dr->d_name);
 	new->next = 0;
 	return (new);
@@ -55,9 +55,14 @@ void			ft_liste_pushback(t_liste **lst, t_liste *elem)
 {
 	t_liste		*tmp;
 
-	tmp = *lst;
 	if (!lst)
 		return ;
+	if(!(*lst))
+	{
+		*lst = elem;
+		return ;
+	}
+	tmp = *lst;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = elem;

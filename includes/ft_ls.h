@@ -28,11 +28,12 @@ typedef struct		s_env
 	char		flags_stock[9];
 	short		flags;
 	char		*path;
+	char		*path_file;
 	t_liste		*lst_first;
 }			t_env;
 
 int	ft_parse(char **av, t_env *env);
-void	ft_open_path(t_env *env, char *av);
+void	ft_open_path(t_env *env, char *av, t_liste *tmp);
 t_liste	*ft_listenew(t_env *env, struct dirent *dr);
 void	ft_liste_pushback(t_liste **lst, t_liste *elem);
 
