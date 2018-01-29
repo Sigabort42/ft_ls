@@ -20,6 +20,8 @@ static void	ft_flags_bit(char c, t_env *env)
 		env->flags |= (1 << 7);
 	else if (c == 'd')
 		env->flags |= (1 << 8);
+	else if (c == 'G')
+		env->flags |= (1 << 9);
 }
 
 static void	ft_affiche_erreur(char c)
