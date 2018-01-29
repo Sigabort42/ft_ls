@@ -18,73 +18,6 @@ static void	ft_print_file(t_env *env, struct dirent *readir, char *path)
 	env->lst_first->path_name);
 }
 
-static void	ft_flags_a(t_liste *tmp)
-{
-	if (!tmp)
-		exit(EXIT_FAILURE);
-	ft_printf("%s\n", tmp->path_name);
-}
-
-static void	ft_flags_l(t_liste *tmp, int a)
-{
-	if (!tmp)
-		exit(EXIT_FAILURE);
-	if (!a)
-	{
-		if (tmp->path_name[0] != '.')
-			ft_printf("%s%5u %s%7s%7u %.12s ",
-			tmp->law, tmp->size_lnk, tmp->name_root, tmp->group,
-			tmp->size, &tmp->date[4]);
-	}
-	else
-	{
-		ft_printf("%s%5u %s%7s%7u %.12s ",
-		tmp->law, tmp->size_lnk, tmp->name_root, tmp->group,
-		tmp->size, &tmp->date[4]);
-	}
-}
-
-static void	ft_flags_G(t_liste *tmp, int a)
-{
-	if (!a)
-	{
-		if (tmp->path_name[0] != '.')
-		{
-			if (tmp->law[0] == 'd')
-				ft_printf("{cyan}%s{eoc}\n", tmp->path_name);
-			else if (tmp->law[0] == 'l')
-				ft_printf("{majenta}%s{eoc}\n", tmp->path_name);
-			else if (tmp->law[0] == 'p')
-				ft_printf("{red}%s{eoc}\n", tmp->path_name);
-			else if (tmp->law[0] == 'c')
-				ft_printf("{green}%s{eoc}\n", tmp->path_name);
-			else if (tmp->law[0] == 'b')
-				ft_printf("{blue}%s{eoc}\n", tmp->path_name);
-			else if (tmp->law[0] == 's')
-				ft_printf("{yellow}%s{eoc}\n", tmp->path_name);
-			else
-				ft_printf("%s\n", tmp->path_name);
-		}
-	}
-	else
-	{
-		if (tmp->law[0] == 'd')
-			ft_printf("{cyan}%s{eoc}\n", tmp->path_name);
-		else if (tmp->law[0] == 'l')
-			ft_printf("{majenta}%s{eoc}\n", tmp->path_name);
-		else if (tmp->law[0] == 'p')
-			ft_printf("{red}%s{eoc}\n", tmp->path_name);
-		else if (tmp->law[0] == 'c')
-			ft_printf("{green}%s{eoc}\n", tmp->path_name);
-		else if (tmp->law[0] == 'b')
-			ft_printf("{blue}%s{eoc}\n", tmp->path_name);
-		else if (tmp->law[0] == 's')
-			ft_printf("{yellow}%s{eoc}\n", tmp->path_name);
-		else
-			ft_printf("%s\n", tmp->path_name);
-	}
-}
-
 static void	ft_affiche(t_env *env)
 {
 	t_liste *tmp;
@@ -110,7 +43,7 @@ static void	ft_affiche(t_env *env)
 		if (env->flags & (1 << 1))
 			ft_flags_l(tmp, env->flags & (1 << 0));
 		if (env->flags & (1 << 9))
-			ft_flags_G(tmp, env->flags & (1 << 0));
+			ft_flags_g_maj(tmp, env->flags & (1 << 0));
 		else if (env->flags & (1 << 0) && tmp->path_name[0] == '.')
 			ft_flags_a(tmp);
 		else
@@ -135,12 +68,12 @@ static char	*ft_print(char *path)
 
 	i = 0;
 	j = 0;
-	if (path[0] == '.' && path[1] == '/' && (ft_strlen(path) == 2))
+/*	if (path[0] == '.' && path[1] == '/' && (ft_strlen(path) == 2))
 	{
 		str = ft_strdup(".");
 		return (str);
 	}
-	if (path[0] == '.')
+*/	if (path[0] == '.')
 	{
 		tmp[j++] = path[i++];
 		if (path[1] == '/')
@@ -174,7 +107,6 @@ void	ft_open_path(t_env *env, char *av, t_liste *tmp)
 	readir = NULL;
 	if (!(dr = opendir(av)))
 	{
-		printf("opendir|%s|\n", av);
 		path = av;
 		ft_print_file(env, readir, path);
 		return ;
@@ -185,7 +117,6 @@ void	ft_open_path(t_env *env, char *av, t_liste *tmp)
 		env->path_file = ft_strjoin_free(env->path_file, ft_strdup(readir->d_name));
 		if ((stat(env->path_file, &env->s)) == -1)
 		{
-			ft_putstr("readir\n");
 			perror("stat");
 			free(env->path_file);
 			exit(EXIT_FAILURE);

@@ -7,6 +7,8 @@ CFLAGS	=	-Wall -Wextra -Werror
 SRCS	=	ft_parse.c \
 		ft_open_path.c \
 		ft_liste.c \
+		ft_flags_g_maj.c \
+		ft_flags_l.c \
 
 OBJS	=	$(SRCS:.c=.o)
 
