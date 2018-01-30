@@ -44,6 +44,7 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	new->group = env->grp->gr_name;
 	new->size_lnk = env->s.st_nlink;
 	new->size = env->s.st_size;
+	new->timestamp = env->s.st_mtime;
 	new->date = ctime(&env->s.st_mtime);
 	new->date[24] = 0;
 	new->path_name = ft_strdup(dr->d_name);

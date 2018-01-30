@@ -16,6 +16,7 @@ typedef struct		s_liste
 	unsigned int	size_lnk;
 	unsigned int	size;
 	char		*date;
+	time_t		timestamp;
 	char		*path_name;
 	struct s_liste	*next;
 }			t_liste;
