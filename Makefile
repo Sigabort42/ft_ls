@@ -9,6 +9,7 @@ SRCS	=	ft_parse.c \
 		ft_liste.c \
 		ft_flags_g_maj.c \
 		ft_flags_l.c \
+		ft_affiche.c \
 
 OBJS	=	$(SRCS:.c=.o)
 

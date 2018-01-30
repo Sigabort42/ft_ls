@@ -39,5 +39,6 @@ void	ft_liste_pushback(t_liste **lst, t_liste *elem);
 void	ft_flags_g_maj(t_liste *tmp, int a);
 void	ft_flags_l(t_liste *tmp, int a);
 void	ft_flags_a(t_liste *tmp);
+void	ft_affiche(t_env *env);
 
 #endif

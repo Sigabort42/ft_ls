@@ -18,47 +18,6 @@ static void	ft_print_file(t_env *env, struct dirent *readir, char *path)
 	env->lst_first->path_name);
 }
 
-static void	ft_affiche(t_env *env)
-{
-	t_liste *tmp;
-	int	total;
-
-	total = 0;
-	if (!env->lst_first)
-		exit(EXIT_FAILURE);
-	if (env->flags & (1 << 1))
-	{
-		tmp = env->lst_first;
-		while (tmp)
-		{
-			if (ft_strcmp(tmp->path_name, "."))
-				total += tmp->size_lnk;
-			tmp = tmp->next;
-		}
-		ft_printf("total %d \n", total);
-	}
-	tmp = env->lst_first;
-	while (tmp)
-	{
-		if (env->flags & (1 << 1))
-			ft_flags_l(tmp, env->flags & (1 << 0));
-		if (env->flags & (1 << 9))
-			ft_flags_g_maj(tmp, env->flags & (1 << 0));
-		else if (env->flags & (1 << 0) && tmp->path_name[0] == '.')
-			ft_flags_a(tmp);
-		else
-		{
-			if (tmp->path_name[0] != '.')
-			{
-				ft_putstr(tmp->path_name);
-				write(1, "\n", 1);
-			}
-		}
-		tmp = tmp->next;
-	}
-	ft_putstr("\n");
-}
-
 static char	*ft_print(char *path)
 {
 	char	*str;
@@ -68,12 +27,12 @@ static char	*ft_print(char *path)
 
 	i = 0;
 	j = 0;
-/*	if (path[0] == '.' && path[1] == '/' && (ft_strlen(path) == 2))
+	if (path[0] == '.' && path[1] == '/' && (ft_strlen(path) == 2))
 	{
 		str = ft_strdup(".");
 		return (str);
 	}
-*/	if (path[0] == '.')
+	if (path[0] == '.')
 	{
 		tmp[j++] = path[i++];
 		if (path[1] == '/')
