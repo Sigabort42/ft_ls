@@ -6,19 +6,19 @@
 #    By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/10 17:33:59 by elbenkri          #+#    #+#              #
-#    Updated: 2018/01/12 04:59:17 by elbenkri         ###   ########.fr        #
+#    Updated: 2018/01/31 14:01:42 by elbenkri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-NAME		=	libftprintf.a
+NAME	=	libftprintf.a
 
 CC		=	gcc
 
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 
-HEADER		=	ft_printf.h
+HEADER	=	ft_printf.h
 
-SRCS		=	ft_is_number.c \
+SRCS	=	ft_is_number.c \
 			ft_itoa_base.c \
 			ft_itoa_base_maj.c \
 			ft_ltoa_base.c \
@@ -55,7 +55,7 @@ SRCS		=	ft_is_number.c \
 			ft_split2_2.c \
 			ft_split2_5.c \
 
-OBJS		=	$(SRCS:.c=.o)
+OBJS	=	$(SRCS:.c=.o)
 
 all: $(NAME)
 

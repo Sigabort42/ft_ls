@@ -1,15 +1,27 @@
+#******************************************************************************#
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2018/01/31 13:03:51 by elbenkri          #+#    #+#              #
+#    Updated: 2018/01/31 13:37:12 by elbenkri         ###   ########.fr        #
+#                                                                              #
+#******************************************************************************#
+
 NAME	=	ft_ls
 
-CC	=	gcc
+CC		=	gcc
 
 CFLAGS	=	-Wall -Wextra -Werror
 
 SRCS	=	ft_parse.c \
-		ft_open_path.c \
-		ft_liste.c \
-		ft_flags_g_maj.c \
-		ft_flags_l.c \
-		ft_affiche.c \
+			ft_open_path.c \
+			ft_liste.c \
+			ft_flags_g_maj.c \
+			ft_flags_l.c \
+			ft_affiche.c \
 
 OBJS	=	$(SRCS:.c=.o)
 

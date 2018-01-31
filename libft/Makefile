@@ -6,7 +6,7 @@
 #    By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 17:04:50 by elbenkri          #+#    #+#              #
-#    Updated: 2018/01/12 05:55:24 by elbenkri         ###   ########.fr        #
+#    Updated: 2018/01/31 13:59:01 by elbenkri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,7 +14,7 @@ NAME			=	libft.a
 
 NAME_TMP		=	tmp_libft.a
 
-CC			=	gcc
+CC				=	gcc
 
 CFLAGS			=	-Wall -Wextra -Werror
 

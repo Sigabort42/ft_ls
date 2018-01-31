@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 15:56:55 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/01/20 15:16:32 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/01/31 13:24:38 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int			ft_printf2(const char *format, va_list ap, t_var *var)
 	while (format[var->ret])
 	{
 		while (!ft_color(&format[var->ret], var) &&
-		!ft_fd(&format[var->ret], var) &&
+				!ft_fd(&format[var->ret], var) &&
 		format[var->ret] && format[var->ret] != '%' && var->i_buf <= 500)
 			var->buf[var->i_buf++] = format[var->ret++];
 		ft_verif_buf(var, format);

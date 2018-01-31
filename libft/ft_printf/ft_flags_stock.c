@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/22 16:14:24 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/01/20 20:11:50 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/01/31 13:17:30 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	ft_flags_stock4(t_var *var, t_flags *s_flags, char *str_hexa)
 		var->i_buf += var->i_buf_tmp;
 	}
 	else if ((s_flags->c & (1 << 0)) && !ft_strchr(var->flags_stock, '.'))
-		ft_flags_stock2_4(var, s_flags, str_hexa);
+		ft_flags_stock2_4(var, s_flags, str_hexa, 0);
 	else
 		ft_flags_stock5(var, s_flags, str_hexa);
 }

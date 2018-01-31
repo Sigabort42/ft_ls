@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 15:22:39 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/01/20 20:21:00 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/01/31 13:18:06 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,8 @@ void	ft_flags_stock2_5(t_var *var, t_flags *s_flags, char *str_hexa)
 	var->i_buf += var->i_buf_tmp;
 }
 
-void	ft_flags_stock2_4(t_var *var, t_flags *s_flags, char *str_hexa)
+void	ft_flags_stock2_4(t_var *var, t_flags *s_flags, char *str_hexa, int i)
 {
-	int	i;
-
-	i = 0;
 	var->i_moins = ft_stock_moins(var, str_hexa);
 	var->i_plus = ft_stock_plus(var, s_flags, str_hexa);
 	i = ft_verif_flags_stock2_4(s_flags, var);
