@@ -17,6 +17,7 @@
 # include <string.h>
 # define ABS(Value) (Value >= 0) ? 0 : 1
 # include "ft_printf/ft_printf.h"
+# include "includes/get_next_line.h"
 
 typedef struct		s_list
 {

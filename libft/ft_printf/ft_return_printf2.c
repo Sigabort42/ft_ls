@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_verif_buf.c                                     :+:      :+:    :+:   */
+/*   ft_return_printf2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/11 18:24:42 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/02 14:57:49 by elbenkri         ###   ########.fr       */
+/*   Created: 2018/02/02 16:48:30 by elbenkri          #+#    #+#             */
+/*   Updated: 2018/02/02 16:54:04 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_verif_buf(t_var *var, const char *format)
+int		ft_return_printf2(const char *format, va_list ap, t_var *var)
 {
-	if (var->i_buf > 10000)
+	if (ft_printf2(format, ap, var) == -1)
 	{
-		write(1, var->buf, 10000);
-		var->i_buf = 0;
-		ft_bzero(var->buf, 10000);
+		ft_free(var);
+		return (-1);
 	}
-	var->ret += ft_stock_flags(&((char*)format)[var->ret], var);
+	return (0);
 }

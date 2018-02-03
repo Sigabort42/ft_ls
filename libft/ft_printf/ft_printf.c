@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/15 15:56:55 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/01/31 13:24:38 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/02 16:53:15 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void			ft_verif(t_var *var)
 	}
 }
 
-static int			ft_printf2(const char *format, va_list ap, t_var *var)
+int					ft_printf2(const char *format, va_list ap, t_var *var)
 {
 	t_flags			s_flags;
 
@@ -91,7 +91,7 @@ static int			ft_printf2(const char *format, va_list ap, t_var *var)
 	{
 		while (!ft_color(&format[var->ret], var) &&
 				!ft_fd(&format[var->ret], var) &&
-		format[var->ret] && format[var->ret] != '%' && var->i_buf <= 500)
+		format[var->ret] && format[var->ret] != '%' && var->i_buf <= 10000)
 			var->buf[var->i_buf++] = format[var->ret++];
 		ft_verif_buf(var, format);
 		if (!ft_strlen(var->flags_stock))
@@ -116,14 +116,11 @@ int					ft_printf(const char *format, ...)
 	t_var			var;
 	va_list			ap;
 
+	ft_init_var(&var);
 	va_start(ap, format);
-	var.ret = 0;
-	var.i_buf = 0;
-	var.nb_conv = 0;
-	ft_strcpy(var.flags_conv, "cCdDioOuUxXpsSb");
-	if (ft_printf2(format, ap, &var) == -1)
+	if (ft_return_printf2(format, ap, &var))
 		return (-1);
-	if (var.type == TYPE_WCHAR && !var.nb_conv)
+	if (ft_verif_wchar_nb(&var))
 		return (-1);
 	else if (var.type == TYPE_WCHAR && var.nb_conv && var.nb.u_i > 1114111)
 	{
@@ -132,9 +129,11 @@ int					ft_printf(const char *format, ...)
 			var.i_buf--;
 		var.i_buf++;
 		write(var.fd, var.buf, var.i_buf);
+		ft_free(&var);
 		return (-1);
 	}
 	va_end(ap);
 	write(var.fd, var.buf, var.i_buf);
+	ft_free(&var);
 	return (var.i_buf);
 }

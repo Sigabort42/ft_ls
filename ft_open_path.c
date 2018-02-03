@@ -94,6 +94,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 		env->pass = getpwuid(env->s.st_uid);
 		env->grp = getgrgid(env->s.st_gid);
 		ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
+		env->lst_last = ft_liste_last(env->lst_first);
 	}
 	ft_affiche(env);
 	if (env->flags & (1 << 2) && env->lst_first)

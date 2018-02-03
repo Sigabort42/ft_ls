@@ -6,18 +6,19 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/11 15:22:39 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/01/31 13:18:06 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/02 14:58:07 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 void	ft_flags_stock2_5(t_var *var, t_flags *s_flags, char *str_hexa)
 {
 	ft_split2_5(s_flags, var);
 	(var->k < 0) ? var->k = 0 : 0;
-	(s_flags->largeur > var->len_str_hexa) ?
-	ft_memset(&var->buf_tmp[var->i_buf_tmp], ' ', var->i_buf_tmp += var->k) : 0;
+	if (s_flags->largeur > var->len_str_hexa)
+		ft_memset(&var->buf_tmp[var->i_buf_tmp], ' ', var->i_buf_tmp += var->k);
 	(var->type == TYPE_ADDRESS) ?
 	ft_memcpy(&var->buf_tmp[var->i_buf_tmp], "0x", var->i_buf_tmp += 2) : 0;
 	if (!(!var->res_strcmp && s_flags->m == 0))
