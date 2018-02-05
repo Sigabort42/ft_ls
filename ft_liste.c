@@ -61,7 +61,6 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	new->date[24] = 0;
 	new->path_name = ft_strdup(dr->d_name);
 	new->next = 0;
-	new->prev = 0;
 	return (new);
 }
 
@@ -80,12 +79,4 @@ void			ft_liste_pushback(t_liste **lst, t_liste *elem)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = elem;
-	elem->prev = tmp;
-}
-
-t_liste			*ft_liste_last(t_liste *lst)
-{
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
 }

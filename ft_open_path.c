@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/01/31 18:09:14 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:45:06 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 static void			ft_print_file(t_env *env, struct dirent *readir, char *path)
 {
-	if ((stat(path, &env->s)) == -1)
+	if ((lstat(path, &env->s)) == -1)
 	{
+		ft_putstr("lol\n");
 		perror("stat");
-		exit(EXIT_FAILURE);
+		return ;
 	}
 	readir = (struct dirent *)malloc(sizeof(struct dirent));
 	ft_strcpy(readir->d_name, path);
@@ -74,9 +75,12 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 
 	readir = NULL;
 	path = ft_strnew(0);
+	ft_putstr("lul\n");
 	if (!(dr = opendir(av)))
 	{
 		path = av;
+		ft_putstr("lil\n");
+		perror("opendir");
 		ft_print_file(env, readir, path);
 		return ;
 	}
@@ -84,19 +88,15 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	{
 		env->path_file = ft_strjoin(av, "/");
 		env->path_file = ft_strjoin_free(env->path_file, ft_strdup(readir->d_name));
-		if ((stat(env->path_file, &env->s)) == -1)
-		{
+		if ((lstat(env->path_file, &env->s)) == -1)
 			perror("stat");
-			free(env->path_file);
-			exit(EXIT_FAILURE);
-		}
 		free(env->path_file);
 		env->pass = getpwuid(env->s.st_uid);
 		env->grp = getgrgid(env->s.st_gid);
 		ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
-		env->lst_last = ft_liste_last(env->lst_first);
 	}
 	ft_affiche(env);
+	closedir(dr);
 	if (env->flags & (1 << 2) && env->lst_first)
 	{
 		while (env->lst_first)
@@ -108,7 +108,6 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			if (env->lst_first && env->lst_first->law[0] == 'd' &&
 			env->lst_first->size_lnk > 2)
 			{
-				
 				path_tmp = ft_print(av, 0);
 				ft_printf("%s/%s :\n", path_tmp, env->lst_first->path_name);
 				tmp = env->lst_first;

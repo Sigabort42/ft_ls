@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:00 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/01/31 13:04:01 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/05 19:33:55 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ft_ok(t_liste *tmp)
 	if (tmp->law[0] == 'd')
 		ft_printf("{cyan}%s{eoc}\n", tmp->path_name);
 	else if (tmp->law[0] == 'l')
-		ft_printf("{majenta}%s{eoc}\n", tmp->path_name);
+		ft_printf("{magenta}%s{eoc}\n", tmp->path_name);
 	else if (tmp->law[0] == 'p')
 		ft_printf("{red}%s{eoc}\n", tmp->path_name);
 	else if (tmp->law[0] == 'c')

@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/10 17:33:04 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/02 16:53:49 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/01/31 14:01:16 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # include <stdlib.h>
 # include <stdarg.h>
 # include <stdint.h>
-# include "../libft.h"
+# include "../../libft/libft.h"
 
 typedef struct			s_color
 {
@@ -71,8 +71,8 @@ enum
 typedef struct			s_var
 {
 	char				*res;
-	char				*buf;
-	char				*buf_tmp;
+	char				buf[500];
+	char				buf_tmp[500];
 	char				flags_stock[50];
 	char				flags_conv[15];
 	int					ret;
@@ -155,11 +155,5 @@ int						ft_verif_flags_stock2_4(t_flags *s_flags, t_var *var);
 void					ft_split2_2(t_flags *s_flags, t_var *var,
 									char *str_hexa);
 void					ft_split2_5(t_flags *s_flags, t_var *var);
-void					ft_free(t_var *var);
-void					ft_init_var(t_var *var);
-int						ft_verif_wchar_nb(t_var *var);
-int						ft_return_printf2(const char *format, va_list ap,
-										t_var *var);
-int						ft_printf2(const char *format, va_list ap, t_var *var);
 
 #endif
