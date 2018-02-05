@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_verif_buf.c                                     :+:      :+:    :+:   */
+/*   ft_init_var.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/11 18:24:42 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/02 14:57:49 by elbenkri         ###   ########.fr       */
+/*   Created: 2018/02/02 16:34:12 by elbenkri          #+#    #+#             */
+/*   Updated: 2018/02/02 16:43:59 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_verif_buf(t_var *var, const char *format)
+void	ft_init_var(t_var *var)
 {
-	if (var->i_buf > 10000)
+	var->buf = (char *)malloc(sizeof(char) * 10000);
+	var->buf_tmp = (char *)malloc(sizeof(char) * 10000);
+	var->ret = 0;
+	var->i_buf = 0;
+	var->nb_conv = 0;
+	ft_strcpy(var->flags_conv, "cCdDioOuUxXpsSb");
+}
+
+int		ft_verif_wchar_nb(t_var *var)
+{
+	if (var->type == TYPE_WCHAR && !var->nb_conv)
 	{
-		write(1, var->buf, 10000);
-		var->i_buf = 0;
-		ft_bzero(var->buf, 10000);
+		free(var->buf);
+		free(var->buf_tmp);
+		return (-1);
 	}
-	var->ret += ft_stock_flags(&((char*)format)[var->ret], var);
+	return (0);
 }
