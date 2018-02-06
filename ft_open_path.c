@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/05 19:45:06 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/06 14:27:37 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void			ft_print_file(t_env *env, struct dirent *readir, char *path)
 {
 	if ((lstat(path, &env->s)) == -1)
 	{
-		ft_putstr("lol\n");
 		perror("stat");
 		return ;
 	}
@@ -73,13 +72,11 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	char			*path;
 	char			*path_tmp;
 
-	readir = NULL;
+	readir = (struct dirent *)malloc(sizeof(struct dirent));
 	path = ft_strnew(0);
-	ft_putstr("lul\n");
 	if (!(dr = opendir(av)))
 	{
 		path = av;
-		ft_putstr("lil\n");
 		perror("opendir");
 		ft_print_file(env, readir, path);
 		return ;
@@ -91,8 +88,10 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 		if ((lstat(env->path_file, &env->s)) == -1)
 			perror("stat");
 		free(env->path_file);
-		env->pass = getpwuid(env->s.st_uid);
-		env->grp = getgrgid(env->s.st_gid);
+		if ((env->pass = getpwuid(env->s.st_uid)) == 0)
+			continue;
+		if ((env->grp = getgrgid(env->s.st_gid)) == 0)
+			continue;
 		ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
 	}
 	ft_affiche(env);
@@ -106,7 +105,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 				!ft_strcmp(env->lst_first->path_name, "..")))
 				env->lst_first = env->lst_first->next;
 			if (env->lst_first && env->lst_first->law[0] == 'd' &&
-			env->lst_first->size_lnk > 2)
+			env->lst_first->size_lnk > 2 && ft_strcmp(env->lst_first->path_name, ".."))
 			{
 				path_tmp = ft_print(av, 0);
 				ft_printf("%s/%s :\n", path_tmp, env->lst_first->path_name);
