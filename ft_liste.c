@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:12 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/01/31 13:04:13 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/06 19:17:42 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	if (!env)
 		return (0);
 	new->law = ft_law_file(env->s.st_mode, law);
-	new->name_root = env->pass->pw_name;
-	new->group = env->grp->gr_name;
+	new->name_root = ft_strdup(env->pass->pw_name);
+	new->group = ft_strdup(env->grp->gr_name);
 	new->size_lnk = env->s.st_nlink;
 	new->size = env->s.st_size;
 	new->timestamp = env->s.st_mtime;

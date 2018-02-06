@@ -6,13 +6,23 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/06 14:27:37 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/06 19:48:37 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
 
-static void			ft_print_file(t_env *env, struct dirent *readir, char *path)
+static void			ft_stock(struct dirent *readir, char *path)
+{
+	int				i;
+
+	i = ft_strlen(path) - 1;
+	while (i >= 0  && path[i] != '/')
+		i--;
+	ft_strcpy(readir->d_name, &path[++i]);
+}
+
+void			ft_print_file(t_env *env, struct dirent *readir, char *path)
 {
 	if ((lstat(path, &env->s)) == -1)
 	{
@@ -20,14 +30,11 @@ static void			ft_print_file(t_env *env, struct dirent *readir, char *path)
 		return ;
 	}
 	readir = (struct dirent *)malloc(sizeof(struct dirent));
-	ft_strcpy(readir->d_name, path);
+	ft_stock(readir, path);
 	env->pass = getpwuid(env->s.st_uid);
 	env->grp = getgrgid(env->s.st_gid);
 	env->lst_first = ft_listenew(env, readir);
-	ft_printf("%s%3u %s%7s%7u %.12s %s\n",
-	env->lst_first->law, env->lst_first->size_lnk, env->lst_first->name_root,
-	env->lst_first->group, env->lst_first->size, &env->lst_first->date[4],
-	env->lst_first->path_name);
+	ft_affiche(env);
 }
 
 static void			ft_print2(int *i, int *j, char *tmp)
@@ -71,14 +78,15 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	struct dirent	*readir;
 	char			*path;
 	char			*path_tmp;
+	int				flg;
 
+	flg = 0;
 	readir = (struct dirent *)malloc(sizeof(struct dirent));
 	path = ft_strnew(0);
 	if (!(dr = opendir(av)))
 	{
-		path = av;
 		perror("opendir");
-		ft_print_file(env, readir, path);
+//		ft_print_file(env, readir, av);
 		return ;
 	}
 	while ((readir = readdir(dr)))
@@ -89,10 +97,29 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			perror("stat");
 		free(env->path_file);
 		if ((env->pass = getpwuid(env->s.st_uid)) == 0)
-			continue;
+		{
+			if (env->s.st_uid == 1000)
+			{
+				env->pass = (struct passwd*)malloc(sizeof(struct passwd));
+				env->pass->pw_name = ft_strdup("1000");
+				flg = 1;
+			}
+			else
+			{
+				flg = 0;
+				continue;
+			}
+		}
+		else
+			flg = 0;
 		if ((env->grp = getgrgid(env->s.st_gid)) == 0)
 			continue;
 		ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
+		if (flg > 0)
+		{
+			free(env->pass->pw_name);
+			free(env->pass);
+		}
 	}
 	ft_affiche(env);
 	closedir(dr);
