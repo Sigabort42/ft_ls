@@ -45,11 +45,10 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 {
 	t_liste		*new;
 	char		*law;
+	char		*path_tmp;
 
 	law = (char*)malloc(11);
-	if (!(new = (t_liste*)malloc(sizeof(*new))))
-		return (0);
-	if (!env)
+	if (!(new = (t_liste*)malloc(sizeof(*new))) || !env)
 		return (0);
 	new->law = ft_law_file(env->s.st_mode, law);
 	new->name_root = ft_strdup(env->pass->pw_name);
@@ -60,7 +59,17 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	new->date = ctime(&env->s.st_mtime);
 	new->date[24] = 0;
 	new->path_name = ft_strdup(dr->d_name);
+	if (law[0] == 'l')
+	{
+		new->path_name_link = ft_strnew(50);
+		path_tmp = ft_strnew(255);
+		ft_strcpy(path_tmp, env->path);
+		ft_strcat(path_tmp, "/");
+		ft_strcat(path_tmp, dr->d_name);
+		readlink(path_tmp, new->path_name_link, 50);
+	}
 	new->next = 0;
+	new->prev = 0;
 	return (new);
 }
 

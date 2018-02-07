@@ -22,12 +22,20 @@ static void     ft_affiche2(t_env *env)
 		if (env->flags & (1 << 1))
 			ft_flags_l(tmp, env->flags & (1 << 0));
 		if (env->flags & (1 << 9))
-			ft_flags_g_maj(tmp, env->flags & (1 << 0));
+			ft_flags_g_maj(tmp, env->flags & (1 << 0), env->flags & (1 << 1));
 		else if (env->flags & (1 << 0) && tmp->path_name[0] == '.')
 			ft_flags_a(tmp);
 		else
 		{
-			if (tmp->path_name[0] != '.')
+			if ((tmp->path_name[0] != '.' && tmp->law[0] == 'l') && 
+			(env->flags & (1 << 1)))
+			{
+				ft_putstr(tmp->path_name);
+				write(1, " -> ", 4);
+				ft_putstr(tmp->path_name_link);
+				write(1, "\n", 1);
+			}
+			else if (tmp->path_name[0] != '.')
 			{
 				ft_putstr(tmp->path_name);
 				write(1, "\n", 1);

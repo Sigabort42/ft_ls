@@ -12,10 +12,12 @@
 
 #include "includes/ft_ls.h"
 
-static void	ft_ok(t_liste *tmp)
+static void	ft_ok(t_liste *tmp, int l)
 {
 	if (tmp->law[0] == 'd')
 		ft_printf("{cyan}%s{eoc}\n", tmp->path_name);
+	else if (tmp->law[0] == 'l' && l)
+		ft_printf("{magenta}%s{eoc} -> %s\n", tmp->path_name, tmp->path_name_link);
 	else if (tmp->law[0] == 'l')
 		ft_printf("{magenta}%s{eoc}\n", tmp->path_name);
 	else if (tmp->law[0] == 'p')
@@ -30,13 +32,13 @@ static void	ft_ok(t_liste *tmp)
 		ft_printf("%s\n", tmp->path_name);
 }
 
-void		ft_flags_g_maj(t_liste *tmp, int a)
+void		ft_flags_g_maj(t_liste *tmp, int a, int l)
 {
 	if (!a)
 	{
 		if (tmp->path_name[0] != '.')
-			ft_ok(tmp);
+			ft_ok(tmp, l);
 	}
 	else
-		ft_ok(tmp);
+		ft_ok(tmp, l);
 }

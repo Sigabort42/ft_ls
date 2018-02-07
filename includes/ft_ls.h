@@ -18,7 +18,9 @@ typedef struct		s_liste
 	char		*date;
 	time_t		timestamp;
 	char		*path_name;
+	char		*path_name_link;
 	struct s_liste	*next;
+	struct s_liste	*prev;
 }			t_liste;
 
 typedef struct		s_env
@@ -31,13 +33,14 @@ typedef struct		s_env
 	char		*path;
 	char		*path_file;
 	t_liste		*lst_first;
+	t_liste		*lst_last;
 }			t_env;
 
 int	ft_parse(char **av, t_env *env);
 void	ft_open_path(t_env *env, char *av, t_liste *tmp);
 t_liste	*ft_listenew(t_env *env, struct dirent *dr);
 void	ft_liste_pushback(t_liste **lst, t_liste *elem);
-void	ft_flags_g_maj(t_liste *tmp, int a);
+void	ft_flags_g_maj(t_liste *tmp, int a, int l);
 void	ft_flags_l(t_liste *tmp, int a);
 void	ft_flags_a(t_liste *tmp);
 void	ft_affiche(t_env *env);
