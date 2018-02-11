@@ -34,7 +34,8 @@ void			ft_print_file(t_env *env, struct dirent *readir, char *path)
 	env->pass = getpwuid(env->s.st_uid);
 	env->grp = getgrgid(env->s.st_gid);
 	env->lst_first = ft_listenew(env, readir);
-	ft_affiche(env);
+	ft_affiche(env, 0);
+	free(readir);
 }
 
 static void			ft_print2(int *i, int *j, char *tmp)
@@ -81,12 +82,12 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	int				flg;
 
 	flg = 0;
-	readir = (struct dirent *)malloc(sizeof(struct dirent));
 	path = ft_strnew(0);
 	if (!(dr = opendir(av)))
 	{
 		perror("opendir");
 //		ft_print_file(env, readir, av);
+		free(path);
 		return ;
 	}
 	while ((readir = readdir(dr)))
@@ -121,7 +122,11 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			free(env->pass);
 		}
 	}
-	ft_affiche(env);
+	if (!(env->flags & (1 << 2)))
+		free(path);
+	(!(env->flags & (1 << 4))) ? ft_tri(env, 0) : ft_tri(env, 1);
+	env->lst_last = ft_listelast(env->lst_first);
+	(!(env->flags & (1 << 3))) ? ft_affiche(env, 0) : ft_affiche(env, 1);
 	closedir(dr);
 	if (env->flags & (1 << 2) && env->lst_first)
 	{
@@ -137,18 +142,19 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 				path_tmp = ft_print(av, 0);
 				ft_printf("%s/%s :\n", path_tmp, env->lst_first->path_name);
 				tmp = env->lst_first;
-				path = ft_strjoin(path_tmp, "/");
-				path = ft_strjoin(path, env->lst_first->path_name);
+				path = ft_strjoin_free(path_tmp, ft_strdup("/"));
+				path = ft_strjoin_free(path, ft_strdup(env->lst_first->path_name));
 				env->lst_first = 0;
 				ft_open_path(env, path, tmp);
 				env->lst_first = tmp;
 			}
 			if (env->lst_first)
 			{
-				path = ft_strjoin(path, "/..");
+				path = ft_strjoin_free(path, ft_strdup("/.."));
+				ft_free_lst(env);
 				env->lst_first = env->lst_first->next;
 			}
-
 		}
+		free(path);
 	}
 }

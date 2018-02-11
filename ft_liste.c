@@ -44,7 +44,6 @@ static void		ft_law_file(mode_t st_mode, char **law)
 t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 {
 	t_liste		*new;
-	char		*path_tmp;
 
 	if (!(new = (t_liste*)malloc(sizeof(*new))) || !env)
 		return (0);
@@ -53,18 +52,21 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	new->group = ft_strdup(env->grp->gr_name);
 	new->size_lnk = env->s.st_nlink;
 	new->size = env->s.st_size;
-	new->timestamp = env->s.st_mtime;
-	new->date = ctime(&env->s.st_mtime);
+	new->timestamp_m = env->s.st_mtime;
+	new->timestamp_a = env->s.st_atime;
+	new->timestamp_c = env->s.st_ctime;
+	new->date = ft_strdup(ctime(&env->s.st_mtime));
 	new->date[24] = 0;
 	new->path_name = ft_strdup(dr->d_name);
+	if (new->law[0] == 'b' || new->law[0] == 'c')
+	{
+		new->major = major(env->s.st_rdev);
+		new->minor = minor(env->s.st_rdev);
+	}
 	if (new->law[0] == 'l')
 	{
 		new->path_name_link = ft_strnew(50);
-		path_tmp = ft_strnew(255);
-		ft_strcpy(path_tmp, env->path);
-		ft_strcat(path_tmp, "/");
-		ft_strcat(path_tmp, dr->d_name);
-		readlink(path_tmp, new->path_name_link, 50);
+		readlink(env->path_file, new->path_name_link, 50);
 	}
 	new->next = 0;
 	new->prev = 0;
@@ -86,4 +88,17 @@ void			ft_liste_pushback(t_liste **lst, t_liste *elem)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = elem;
+	elem->prev = tmp;
+}
+
+t_liste			*ft_listelast(t_liste *lst)
+{
+	t_liste		*tmp;
+
+	if (!lst)
+		return (0);
+	tmp = lst;
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp);
 }

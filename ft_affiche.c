@@ -12,11 +12,11 @@
 
 #include "includes/ft_ls.h"
 
-static void     ft_affiche2(t_env *env)
+static void     ft_affiche2(t_env *env, int tri)
 {
 	t_liste *tmp;
 
-	tmp = env->lst_first;
+	tmp = (tri == 0) ? env->lst_first : env->lst_last;
 	while (tmp)
 	{
 		if (env->flags & (1 << 1))
@@ -41,12 +41,11 @@ static void     ft_affiche2(t_env *env)
 				write(1, "\n", 1);
 			}
 		}
-		tmp = tmp->next;
+		tmp = (tri == 0) ? tmp->next : tmp->prev;
 	}
-
 }
 
-void		ft_affiche(t_env *env)
+void		ft_affiche(t_env *env, int tri)
 {
 	t_liste *tmp;
 	int     total;
@@ -65,6 +64,6 @@ void		ft_affiche(t_env *env)
 		}
 		ft_printf("total %d \n", total);
 	}
-	ft_affiche2(env);
+	ft_affiche2(env, tri);
 	ft_putstr("\n");
 }

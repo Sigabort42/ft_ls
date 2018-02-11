@@ -22,6 +22,8 @@ SRCS	=	ft_parse.c \
 			ft_flags_g_maj.c \
 			ft_flags_l.c \
 			ft_affiche.c \
+			ft_free_lst.c \
+			ft_tri.c \
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -33,10 +35,10 @@ $(NAME):	$(OBJS)
 
 clean:
 	@make -C libft/ clean
-	@/bin/rm $(OBJS)
+	@/bin/rm -rf $(OBJS)
 
 fclean:	clean
 	@make -C libft/	fclean
-	@/bin/rm $(NAME)
+	@/bin/rm -rf $(NAME)
 
 re: fclean all

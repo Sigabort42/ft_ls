@@ -26,15 +26,17 @@ int	main(int argc, char **argv)
 	if (i == 0)
 	{
 		env.path = ft_strdup(".");
-		ft_open_path(&env, ".", 0);
+		ft_open_path(&env, ft_strdup("."), 0);
 	}
 	else
 	{
 		while (argv[i])
 		{
 			env.path = ft_strdup(argv[i]);
-			ft_open_path(&env, argv[i++], 0);
+			ft_open_path(&env, ft_strdup(argv[i++]), 0);
 		}
 	}
 	ft_printf("fin : %b %d %s\n", env.flags, i, argv[i]);
+	free(env.path);
+	while (42);
 }
