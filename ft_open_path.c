@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/13 13:01:32 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/13 14:45:23 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	if (!(dr = opendir(av)))
 	{
 		perror("opendir");
-//		ft_print_file(env, readir, av);
+		ft_print_file(env, readir = NULL, av);
 		return ;
 	}
 	while ((readir = readdir(dr)))

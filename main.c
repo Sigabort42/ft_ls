@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/13 12:48:35 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/13 14:55:02 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			main(int argc, char **argv)
 		return (0);
 	ft_strcpy(env.flags_stock, "adfgGlrRtu");
 	i = ft_parse(argv, &env);
-	if (i == 0)
+	if (i == 0 || !argv[i])
 	{
 		env.path = ft_strdup(".");
 		ft_open_path(&env, ".", 0);
