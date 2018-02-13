@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/06 19:58:07 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/13 13:01:32 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ static char			*ft_print(char *path, int i)
 
 	j = 0;
 	if (path[0] == '.' && path[1] == '/' && (ft_strlen(path) == 2))
+	{
 		return (ft_strdup("."));
+	}
 	if (path[0] == '.')
 	{
 		tmp[j++] = path[i++];
@@ -77,17 +79,15 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 {
 	DIR				*dr;
 	struct dirent	*readir;
-	char			*path;
 	char			*path_tmp;
 	int				flg;
 
 	flg = 0;
-	path = ft_strnew(0);
+	path_tmp = "";
 	if (!(dr = opendir(av)))
 	{
 		perror("opendir");
 //		ft_print_file(env, readir, av);
-		free(path);
 		return ;
 	}
 	while ((readir = readdir(dr)))
@@ -122,8 +122,6 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			free(env->pass);
 		}
 	}
-	if (!(env->flags & (1 << 2)))
-		free(path);
 	(!(env->flags & (1 << 4))) ? ft_tri(env, 0) : ft_tri(env, 1);
 	env->lst_last = ft_listelast(env->lst_first);
 	(!(env->flags & (1 << 3))) ? ft_affiche(env, 0) : ft_affiche(env, 1);
@@ -139,22 +137,24 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			if (env->lst_first && env->lst_first->law[0] == 'd' &&
 			env->lst_first->size_lnk > 2 && ft_strcmp(env->lst_first->path_name, ".."))
 			{
+				if (ft_strstr(path_tmp, "/.."))
+					free(path_tmp);
 				path_tmp = ft_print(av, 0);
 				ft_printf("%s/%s :\n", path_tmp, env->lst_first->path_name);
 				tmp = env->lst_first;
-				path = ft_strjoin_free(path_tmp, ft_strdup("/"));
-				path = ft_strjoin_free(path, ft_strdup(env->lst_first->path_name));
+				path_tmp = ft_strjoin_free(path_tmp, ft_strdup("/"));
+				path_tmp = ft_strjoin_free(path_tmp, ft_strdup(env->lst_first->path_name));
 				env->lst_first = 0;
-				ft_open_path(env, path, tmp);
+				ft_open_path(env, path_tmp, tmp);
 				env->lst_first = tmp;
 			}
 			if (env->lst_first)
 			{
-				path = ft_strjoin_free(path, ft_strdup("/.."));
+				path_tmp = ft_strjoin_free(path_tmp, ft_strdup("/.."));
 				ft_free_lst(env);
 				env->lst_first = env->lst_first->next;
 			}
 		}
-		free(path);
+		free(path_tmp);
 	}
 }

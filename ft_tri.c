@@ -10,7 +10,7 @@ static void	ft_tri_t2(t_env *env)
 	while (tmp->next)
 	{
 		if ((tmp->timestamp_m <= tmp->next->timestamp_m) &&
-		(ft_strcmp(tmp->path_name, tmp->next->path_name) < 0))
+		(ft_strcmp(tmp->path_name, tmp->next->path_name) > 0))
 		{
 			tmp_prev = tmp->prev;
 			tmp_next = tmp->next;

@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:06 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/06 15:45:03 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/13 12:53:14 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,24 @@ void     ft_flags_l(t_liste *tmp, int a)
 		if (tmp->path_name[0] != '.')
 		{
 			if (tmp->law[0] == 'b' || tmp->law[0]== 'c')
-				ft_printf("%s%5u %s%7s%#7d,%#4d %.12s ",
+				ft_printf("%s %5u %s %7s %#7d,%#4d %.12s ",
 				tmp->law, tmp->size_lnk, tmp->name_root, tmp->group,
 				tmp->major, tmp->minor, &tmp->date[4]);
 			else
-				ft_printf("%s%5u %s%7s%7ld %.12s ",
+				ft_printf("%s %5u %s %7s %7ld %s ",
 				tmp->law, tmp->size_lnk, tmp->name_root, tmp->group,
-				tmp->size, &tmp->date[4]);
+				tmp->size, &tmp->date[0]);
 		}
 	}
 	else
 	{
 		if (tmp->law[0] == 'b' || tmp->law[0]== 'c')
-			ft_printf("%s%5u %s%7s%#7d,%#4d %.12s ",
+			ft_printf("%s %5u %s %7s %#7d,%#4d %.12s ",
 			tmp->law, tmp->size_lnk, tmp->name_root, tmp->group,
 			tmp->major, tmp->minor, &tmp->date[4]);
 		else
-			ft_printf("%s%5u %s%7s%7ld %.12s ",
+			ft_printf("%s %5u %s %7s %7ld %s ",
 			tmp->law, tmp->size_lnk, tmp->name_root, tmp->group,
-			tmp->size, &tmp->date[4]);
+			tmp->size, &tmp->date[0]);
 	}
 }
