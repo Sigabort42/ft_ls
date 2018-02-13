@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/13 16:00:08 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:58:53 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			flg = 0;
 		if ((env->grp = getgrgid(env->s.st_gid)) == 0)
 			continue;
-		ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
+			ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
 		free(env->path_file);
 		if (flg > 0)
 		{
@@ -125,6 +125,8 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	(!(env->flags & (1 << 4))) ? ft_tri(env, 0) : ft_tri(env, 1);
 	env->lst_last = ft_listelast(env->lst_first);
 	(!(env->flags & (1 << 3))) ? ft_affiche(env, 0) : ft_affiche(env, 1);
+	if (!(env->flags & (1 << 2)))
+		ft_free_lst(env);
 	closedir(dr);
 	if (env->flags & (1 << 2) && env->lst_first)
 	{

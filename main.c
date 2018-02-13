@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/13 14:55:02 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/13 16:59:11 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int			main(int argc, char **argv)
 	{
 		env.path = ft_strdup(".");
 		ft_open_path(&env, ".", 0);
+		free(env.path);
 	}
 	else
 	{
@@ -37,6 +38,6 @@ int			main(int argc, char **argv)
 			free(env.path);
 		}
 	}
-	ft_printf("fin : %b %d %s\n", env.flags, i, argv[i]);
-	while (42);
+//	ft_printf("fin : %b %d %s\n", env.flags, i, argv[i]);
+//	while (42);
 }
