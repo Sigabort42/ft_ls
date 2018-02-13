@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:23 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/13 14:54:48 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/13 15:44:28 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static void	ft_affiche_erreur(char c)
 	exit(EXIT_FAILURE);
 }
 
-int		ft_parse(char **av, t_env *env)
+int			ft_parse(char **av, t_env *env)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	*c;
 
 	i = 1;
@@ -60,10 +60,9 @@ int		ft_parse(char **av, t_env *env)
 				return (i);
 			while (av[i][j] && av[i][j] != ' ')
 			{
-				j++;
 				if (!ft_strncmp(av[i], "--", 2))
 					return (i + 1);
-				if (!(c = ft_strchr(env->flags_stock, av[i][j])))
+				if (!(c = ft_strchr(env->flags_stock, av[i][++j])))
 					ft_affiche_erreur(av[i][j]);
 				ft_flags_bit(c[0], env);
 			}
