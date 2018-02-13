@@ -8,6 +8,8 @@
 # include "./../libft/libft.h"
 # include <stdio.h>
 # include <sys/types.h>
+#include <string.h>
+#include <errno.h>
 
 typedef struct		s_liste
 {

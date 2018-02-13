@@ -27,6 +27,7 @@ void			ft_print_file(t_env *env, struct dirent *readir, char *path)
 	if ((lstat(path, &env->s)) == -1)
 	{
 		perror("stat");
+		ft_printf("ls: %s: %s\n", path, strerror(errno));
 		return ;
 	}
 	readir = (struct dirent *)malloc(sizeof(struct dirent));
@@ -87,8 +88,12 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	if (!(dr = opendir(av)))
 	{
 		perror("opendir");
+		if (!ft_strcmp(strerror(errno), "Permission denied"))
+		{
+			ft_printf("ls: %s: %s\n", av, strerror(errno));
+			return ;
+		}
 		ft_print_file(env, readir = NULL, av);
-		return ;
 	}
 	while ((readir = readdir(dr)))
 	{
