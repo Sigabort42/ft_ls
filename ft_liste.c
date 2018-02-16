@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:12 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/13 17:12:17 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/16 16:46:13 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	new->group = ft_strdup(env->grp->gr_name);
 	new->size_lnk = env->s.st_nlink;
 	new->size = env->s.st_size;
+	new->st_blocks = env->s.st_blocks;
 	new->timestamp_m = env->s.st_mtime;
 	new->timestamp_a = env->s.st_atime;
 	new->timestamp_c = env->s.st_ctime;
@@ -101,4 +102,19 @@ t_liste			*ft_listelast(t_liste *lst)
 	while (tmp->next)
 		tmp = tmp->next;
 	return (tmp);
+}
+
+int				ft_listecount(t_liste *lst)
+{
+	int			i;
+	t_liste		*tmp;
+
+	i = 0;
+	tmp = lst;
+	while (tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (i);
 }

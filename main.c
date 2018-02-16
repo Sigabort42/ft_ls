@@ -6,16 +6,17 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/13 16:59:11 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/16 16:14:45 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
 
-int			main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_env	env;
 	int		i;
+//	char	**av;
 
 	env.flags = 0;
 	env.lst_first = 0;
@@ -23,7 +24,12 @@ int			main(int argc, char **argv)
 		return (0);
 	ft_strcpy(env.flags_stock, "adfgGlrRtu");
 	i = ft_parse(argv, &env);
-	if (i == 0 || !argv[i])
+/*	av = ft_tri_main(argc, argv, i);
+	i = 0;
+	while (av[i])
+		printf("ici=>>>|%s|\n", av[i++]);
+	sleep(10);
+*/	if (i == 0 || !argv[i])
 	{
 		env.path = ft_strdup(".");
 		ft_open_path(&env, ".", 0);
@@ -39,5 +45,5 @@ int			main(int argc, char **argv)
 		}
 	}
 //	ft_printf("fin : %b %d %s\n", env.flags, i, argv[i]);
-//	while (42);
+	while (42);
 }

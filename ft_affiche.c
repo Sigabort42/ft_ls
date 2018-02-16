@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:45 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/06 15:40:38 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/16 16:54:51 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void     ft_affiche2(t_env *env, int tri)
 	while (tmp)
 	{
 		if (env->flags & (1 << 1))
-			ft_flags_l(tmp, env->flags & (1 << 0));
+			ft_flags_l(tmp);
 		if (env->flags & (1 << 9))
-			ft_flags_g_maj(tmp, env->flags & (1 << 0), env->flags & (1 << 1));
+			ft_flags_g_maj(tmp, env->flags & (1 << 1));
 		else if (env->flags & (1 << 0) && tmp->path_name[0] == '.')
 			ft_flags_a(tmp);
 		else
@@ -58,8 +58,7 @@ void		ft_affiche(t_env *env, int tri)
 		tmp = env->lst_first;
 		while (tmp)
 		{
-			if (ft_strcmp(tmp->path_name, "."))
-				total += tmp->size_lnk;
+			total += tmp->st_blocks;
 			tmp = tmp->next;
 		}
 		ft_printf("total %d \n", total);

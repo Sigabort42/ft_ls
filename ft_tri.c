@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tri.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/16 16:41:04 by elbenkri          #+#    #+#             */
+/*   Updated: 2018/02/16 17:11:21 by elbenkri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/ft_ls.h"
 
 static void	ft_tri_t2(t_env *env)
@@ -73,7 +85,7 @@ void		ft_tri(t_env *env, int tri)
 	t_liste	*tmp_next;
 	t_liste	*tmp;
 
-	if (tri == 0)
+	if (tri == 0 && ft_listecount(env->lst_first) > 1)
 	{
 		tmp = env->lst_first->next;
 		while (tmp->next)

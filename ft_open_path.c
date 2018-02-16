@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/13 16:58:53 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/16 17:09:54 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void			ft_print_file(t_env *env, struct dirent *readir, char *path)
 	if ((lstat(path, &env->s)) == -1)
 	{
 		perror("stat");
-		ft_printf("ls: %s: %s\n", path, strerror(errno));
 		return ;
 	}
 	readir = (struct dirent *)malloc(sizeof(struct dirent));
@@ -88,12 +87,8 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	if (!(dr = opendir(av)))
 	{
 		perror("opendir");
-		if (!ft_strcmp(strerror(errno), "Permission denied"))
-		{
-			ft_printf("ls: %s: %s\n", av, strerror(errno));
-			return ;
-		}
 		ft_print_file(env, readir = NULL, av);
+		return ;
 	}
 	while ((readir = readdir(dr)))
 	{
@@ -119,6 +114,9 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			flg = 0;
 		if ((env->grp = getgrgid(env->s.st_gid)) == 0)
 			continue;
+		if (!(env->flags & (1 << 0)) && readir->d_name[0] == '.' && ft_strcmp(readir->d_name, "."))
+			;
+		else
 			ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
 		free(env->path_file);
 		if (flg > 0)
@@ -142,7 +140,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 				!ft_strcmp(env->lst_first->path_name, "..")))
 				env->lst_first = env->lst_first->next;
 			if (env->lst_first && env->lst_first->law[0] == 'd' &&
-			env->lst_first->size_lnk > 2 && ft_strcmp(env->lst_first->path_name, ".."))
+			env->lst_first->size_lnk > 2 && ft_strcmp(env->lst_first->path_name, "."))
 			{
 				if (ft_strstr(path_tmp, "/.."))
 					free(path_tmp);

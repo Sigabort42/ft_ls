@@ -6,7 +6,7 @@
 #    By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/31 13:03:51 by elbenkri          #+#    #+#              #
-#    Updated: 2018/02/13 16:27:12 by elbenkri         ###   ########.fr        #
+#    Updated: 2018/02/15 20:55:49 by elbenkri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,7 +14,7 @@ NAME	=	ft_ls
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror #-g3 #-fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror #-g3 -fsanitize=address
 
 SRCS	=	ft_parse.c \
 			ft_open_path.c \
@@ -24,6 +24,7 @@ SRCS	=	ft_parse.c \
 			ft_affiche.c \
 			ft_free_lst.c \
 			ft_tri.c \
+			main.c
 
 OBJS	=	$(SRCS:.c=.o)
 
@@ -31,7 +32,7 @@ all: 		$(NAME)
 
 $(NAME):	$(OBJS)
 	@make -C libft/
-	@$(CC) $(CFLAGS) $(OBJS) main.c libft/libft.a -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME)
 
 clean:
 	@make -C libft/ clean

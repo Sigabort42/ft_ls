@@ -8,8 +8,6 @@
 # include "./../libft/libft.h"
 # include <stdio.h>
 # include <sys/types.h>
-#include <string.h>
-#include <errno.h>
 
 typedef struct		s_liste
 {
@@ -18,6 +16,7 @@ typedef struct		s_liste
 	char			*group;
 	unsigned int	size_lnk;
 	unsigned int	size;
+	long long		st_blocks;
 	char			*date;
 	time_t			timestamp_m;
 	time_t			timestamp_a;
@@ -48,8 +47,9 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp);
 t_liste				*ft_listenew(t_env *env, struct dirent *dr);
 void				ft_liste_pushback(t_liste **lst, t_liste *elem);
 t_liste				*ft_listelast(t_liste *lst);
-void				ft_flags_g_maj(t_liste *tmp, int a, int l);
-void				ft_flags_l(t_liste *tmp, int a);
+int					ft_listecount(t_liste *lst);
+void				ft_flags_g_maj(t_liste *tmp, int l);
+void				ft_flags_l(t_liste *tmp);
 void				ft_flags_a(t_liste *tmp);
 void				ft_affiche(t_env *env, int tri);
 void				ft_free_lst(t_env *env);

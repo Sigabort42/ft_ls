@@ -6,13 +6,13 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:00 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/05 19:33:55 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/16 16:52:22 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
 
-static void	ft_ok(t_liste *tmp, int l)
+void		ft_flags_g_maj(t_liste *tmp, int l)
 {
 	if (tmp->law[0] == 'd')
 		ft_printf("{cyan}%s{eoc}\n", tmp->path_name);
@@ -30,15 +30,4 @@ static void	ft_ok(t_liste *tmp, int l)
 		ft_printf("{yellow}%s{eoc}\n", tmp->path_name);
 	else
 		ft_printf("%s\n", tmp->path_name);
-}
-
-void		ft_flags_g_maj(t_liste *tmp, int a, int l)
-{
-	if (!a)
-	{
-		if (tmp->path_name[0] != '.')
-			ft_ok(tmp, l);
-	}
-	else
-		ft_ok(tmp, l);
 }
