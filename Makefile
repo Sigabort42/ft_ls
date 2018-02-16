@@ -6,7 +6,7 @@
 #    By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/31 13:03:51 by elbenkri          #+#    #+#              #
-#    Updated: 2018/02/15 20:55:49 by elbenkri         ###   ########.fr        #
+#    Updated: 2018/02/16 18:07:38 by elbenkri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -21,6 +21,7 @@ SRCS	=	ft_parse.c \
 			ft_liste.c \
 			ft_flags_g_maj.c \
 			ft_flags_l.c \
+			ft_flags_i.c \
 			ft_affiche.c \
 			ft_free_lst.c \
 			ft_tri.c \

@@ -35,7 +35,7 @@ typedef struct		s_env
 	struct stat		s;
 	struct passwd	*pass;
 	struct group	*grp;
-	char			flags_stock[11];
+	char			flags_stock[10];
 	short			flags;
 	char			*path;
 	char			*path_file;

@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/16 16:14:45 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/16 18:15:08 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,14 @@ int				main(int argc, char **argv)
 {
 	t_env	env;
 	int		i;
-//	char	**av;
 
 	env.flags = 0;
 	env.lst_first = 0;
 	if (argc < 1)
 		return (0);
-	ft_strcpy(env.flags_stock, "adfgGlrRtu");
+	ft_strcpy(env.flags_stock, "adfgGlrRtui");
 	i = ft_parse(argv, &env);
-/*	av = ft_tri_main(argc, argv, i);
-	i = 0;
-	while (av[i])
-		printf("ici=>>>|%s|\n", av[i++]);
-	sleep(10);
-*/	if (i == 0 || !argv[i])
+	if (i == 0 || !argv[i])
 	{
 		env.path = ft_strdup(".");
 		ft_open_path(&env, ".", 0);
@@ -44,6 +38,6 @@ int				main(int argc, char **argv)
 			free(env.path);
 		}
 	}
-//	ft_printf("fin : %b %d %s\n", env.flags, i, argv[i]);
+	ft_printf("fin : %b %d %s\n", env.flags, i, argv[i]);
 	while (42);
 }

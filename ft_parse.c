@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:23 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/13 15:44:28 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/16 18:10:34 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,15 @@ static void	ft_flags_bit(char c, t_env *env)
 		env->flags |= (1 << 8);
 	else if (c == 'G')
 		env->flags |= (1 << 9);
+	else if (c == 'i')
+		env->flags |= (1 << 10);
 }
 
 static void	ft_affiche_erreur(char c)
 {
 	ft_putstr("ls: illegal option -- ");
 	write(1, &c, 1);
-	ft_putstr("\nusage: ls [-adfgGlrRtu] [file ...]\n");
+	ft_putstr("\nusage: ls [-adfgGlrRtui] [file ...]\n");
 	exit(EXIT_FAILURE);
 }
 

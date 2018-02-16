@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:12 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/16 16:46:13 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/16 18:02:02 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	new->size_lnk = env->s.st_nlink;
 	new->size = env->s.st_size;
 	new->st_blocks = env->s.st_blocks;
+	new->inode = env->s.st_ino;
 	new->timestamp_m = env->s.st_mtime;
 	new->timestamp_a = env->s.st_atime;
 	new->timestamp_c = env->s.st_ctime;
