@@ -87,7 +87,7 @@ void		ft_tri(t_env *env, int tri)
 
 	if (tri == 0 && ft_listecount(env->lst_first) > 1)
 	{
-		tmp = env->lst_first->next;
+		tmp = env->lst_first->next->next;
 		while (tmp->next)
 		{
 			if (ft_strcmp(tmp->path_name, tmp->next->path_name) > 0)
@@ -101,7 +101,7 @@ void		ft_tri(t_env *env, int tri)
 					tmp_next->next->prev = tmp;
 				tmp_next->next = tmp;
 				tmp->prev = tmp_next;
-				tmp = env->lst_first->next;
+				tmp = env->lst_first->next->next;
 			}
 			else
 				tmp = tmp->next;

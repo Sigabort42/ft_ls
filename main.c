@@ -17,6 +17,13 @@ int				main(int argc, char **argv)
 	t_env	env;
 	int		i;
 
+	if (ioctl(0, TIOCGWINSZ, &env.ws) == -1)
+		perror("ioctl");
+	else
+	{
+		printf("ouloulou=>>>%d %d %d %d\n", env.ws.ws_row, env.ws.ws_col, env.ws.ws_xpixel, env.ws.ws_ypixel);
+		printf("%-16s %-16s %-16s %-16s\n", "flags_l.c", "flags_l.c", "flags_l.c", "flags_l.c");
+	}
 	env.flags = 0;
 	env.lst_first = 0;
 	if (argc < 1)

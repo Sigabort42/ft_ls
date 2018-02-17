@@ -8,6 +8,7 @@
 # include "./../libft/libft.h"
 # include <stdio.h>
 # include <sys/types.h>
+# include <sys/ioctl.h>
 
 typedef struct		s_liste
 {
@@ -35,6 +36,7 @@ typedef struct		s_env
 	struct stat		s;
 	struct passwd	*pass;
 	struct group	*grp;
+	struct winsize	ws;
 	char			flags_stock[11];
 	short			flags;
 	char			*path;
