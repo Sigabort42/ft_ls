@@ -94,7 +94,8 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	{
 		if ((lstat(av, &env->s)) == -1)
 			perror("stat");
-		if (S_ISLNK(env->s.st_mode) && av[ft_strlen(av) - 1] != '/')
+		if ((S_ISLNK(env->s.st_mode) && av[ft_strlen(av) - 1] != '/') ||
+		env->flags & (1 << 8))
 		{
 			ft_strcpy(readir->d_name, av);
 			env->pass = getpwuid(env->s.st_uid);
@@ -125,8 +126,8 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			flg = 0;
 		if ((env->grp = getgrgid(env->s.st_gid)) == 0)
 			continue;
-		if (!(env->flags & (1 << 0)) && readir->d_name[0] == '.' &&
-		ft_strcmp(readir->d_name, "."))
+		if (!(env->flags & (1 << 0)) && (!(env->flags & (1 << 6))) &&
+		readir->d_name[0] == '.' && ft_strcmp(readir->d_name, "."))
 			;
 		else
 			ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
@@ -137,7 +138,8 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			free(env->pass);
 		}
 	}
-	(!(env->flags & (1 << 4))) ? ft_tri(env, 0) : ft_tri(env, 1);
+	if (!(env->flags & (1 << 6)))
+		(!(env->flags & (1 << 4))) ? ft_tri(env, 0) : ft_tri(env, 1);
 	env->lst_last = ft_listelast(env->lst_first);
 	(!(env->flags & (1 << 3))) ? ft_affiche(env, 0) : ft_affiche(env, 1);
 	if (!(env->flags & (1 << 2)))

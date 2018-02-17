@@ -29,7 +29,10 @@ static void	ft_flags_bit(char c, t_env *env)
 	else if (c == 'f')
 		env->flags |= (1 << 6);
 	else if (c == 'g')
+	{
+		env->flags |= (1 << 1);
 		env->flags |= (1 << 7);
+	}
 	else if (c == 'd')
 		env->flags |= (1 << 8);
 	else if (c == 'G')

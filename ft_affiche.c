@@ -17,8 +17,8 @@ static void     ft_affiche2(t_env *env, int tri)
 	t_liste *tmp;
 
 	tmp = (tri == 0) ? env->lst_first : env->lst_last;
-	tmp = ((env->flags & (1 << 0)) || env->lst_first == env->lst_last) ?
-	tmp : tmp->next;
+	tmp = ((env->flags & (1 << 0)) || env->flags & (1 << 6) ||
+	env->lst_first == env->lst_last) ? tmp : tmp->next;
 	while (tmp)
 	{
 		if (env->flags & (1 << 10))
