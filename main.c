@@ -6,17 +6,11 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/17 17:46:47 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/17 18:54:28 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
-
-int				ft_putch(int c)
-{
-	write(1, &c, 1);
-	return (0);
-}
 
 int				main(int argc, char **argv)
 {

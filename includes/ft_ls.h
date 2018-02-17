@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/17 18:34:15 by elbenkri          #+#    #+#             */
+/*   Updated: 2018/02/17 18:54:35 by elbenkri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_LS_H
 # define FT_LS_H
 # include <dirent.h>
@@ -9,6 +21,10 @@
 # include <sys/types.h>
 # include "./../libft/libft.h"
 # include <sys/ioctl.h>
+# include <termios.h>
+# include <termcap.h>
+# include <curses.h>
+# include <term.h>
 
 typedef struct		s_liste
 {
@@ -36,7 +52,6 @@ typedef struct		s_env
 	struct stat		s;
 	struct passwd	*pass;
 	struct group	*grp;
-	struct winsize	ws;
 	char			flags_stock[11];
 	short			flags;
 	char			*path;

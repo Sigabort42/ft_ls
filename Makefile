@@ -6,7 +6,7 @@
 #    By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/31 13:03:51 by elbenkri          #+#    #+#              #
-#    Updated: 2018/02/17 17:24:03 by elbenkri         ###   ########.fr        #
+#    Updated: 2018/02/17 18:58:43 by elbenkri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -33,7 +33,7 @@ all: 		$(NAME)
 
 $(NAME):	$(OBJS)
 	@make -C libft/
-	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a  -L/ -lncurses -o $(NAME)
 
 clean:
 	@make -C libft/ clean
