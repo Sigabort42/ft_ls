@@ -6,29 +6,23 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/17 16:15:40 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/17 17:46:47 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
+
+int				ft_putch(int c)
+{
+	write(1, &c, 1);
+	return (0);
+}
 
 int				main(int argc, char **argv)
 {
 	t_env		env;
 	int			i;
 
-	if (ioctl(0, TIOCGWINSZ, &env.ws) == -1)
-		perror("ioctl");
-	else
-	{
-		env.ws.ws_row = 100;
-		env.ws.ws_col = 100;
-		env.ws.ws_xpixel = 10;
-		env.ws.ws_ypixel = 10;
-		printf("ouloulou=>>>%d %d %d %d\n", env.ws.ws_row, env.ws.ws_col, env.ws.ws_xpixel, env.ws.ws_ypixel);
-		printf("%-16s %-16s %-16s %-16s\n", "flags_l.c", "flags_l.c", "flags_l.c", "flags_l.c");
-		sleep(3);
-	}
 	env.flags = 0;
 	env.lst_first = 0;
 	if (argc < 1)
