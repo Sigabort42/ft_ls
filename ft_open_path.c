@@ -92,6 +92,17 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	}
 	while ((readir = readdir(dr)))
 	{
+		if ((lstat(av, &env->s)) == -1)
+			perror("stat");
+		if (S_ISLNK(env->s.st_mode) && av[ft_strlen(av) - 1] != '/')
+		{
+			ft_strcpy(readir->d_name, av);
+			env->pass = getpwuid(env->s.st_uid);
+			env->grp = getgrgid(env->s.st_gid);
+			env->path_file = av;
+			env->lst_first = ft_listenew(env, readir);
+			break;
+		}
 		env->path_file = ft_strjoin(av, "/");
 		env->path_file = ft_strjoin_free(env->path_file, ft_strdup(readir->d_name));
 		if ((lstat(env->path_file, &env->s)) == -1)
@@ -114,7 +125,8 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			flg = 0;
 		if ((env->grp = getgrgid(env->s.st_gid)) == 0)
 			continue;
-		if (!(env->flags & (1 << 0)) && readir->d_name[0] == '.' && ft_strcmp(readir->d_name, "."))
+		if (!(env->flags & (1 << 0)) && readir->d_name[0] == '.' &&
+		ft_strcmp(readir->d_name, "."))
 			;
 		else
 			ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));

@@ -16,5 +16,5 @@ void	ft_flags_i(t_liste *tmp)
 {
 	if (!tmp)
 		exit(EXIT_FAILURE);
-	ft_printf("%d ", tmp->inode);
+	ft_printf("%lld ", tmp->inode);
 }
