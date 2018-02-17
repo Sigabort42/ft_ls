@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:45 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/16 18:28:38 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/17 15:50:55 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void     ft_affiche2(t_env *env, int tri)
 
 	tmp = (tri == 0) ? env->lst_first : env->lst_last;
 	tmp = ((env->flags & (1 << 0)) || env->flags & (1 << 6) ||
-	env->lst_first == env->lst_last) ? tmp : tmp->next;
+	env->lst_first == env->lst_last) ? tmp : tmp->next->next;
 	while (tmp)
 	{
 		if (env->flags & (1 << 10))

@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:41:04 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/16 17:11:21 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/17 15:50:11 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void		ft_tri(t_env *env, int tri)
 
 	if (tri == 0 && ft_listecount(env->lst_first) > 1)
 	{
-		tmp = env->lst_first->next->next;
+		tmp = env->lst_first->next;
 		while (tmp->next)
 		{
 			if (ft_strcmp(tmp->path_name, tmp->next->path_name) > 0)
@@ -101,7 +101,7 @@ void		ft_tri(t_env *env, int tri)
 					tmp_next->next->prev = tmp;
 				tmp_next->next = tmp;
 				tmp->prev = tmp_next;
-				tmp = env->lst_first->next->next;
+				tmp = env->lst_first->next;
 			}
 			else
 				tmp = tmp->next;

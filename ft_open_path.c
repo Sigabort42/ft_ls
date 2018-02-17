@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/16 17:09:54 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/17 15:49:35 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,8 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 		if ((env->grp = getgrgid(env->s.st_gid)) == 0)
 			continue;
 		if (!(env->flags & (1 << 0)) && (!(env->flags & (1 << 6))) &&
-		readir->d_name[0] == '.' && ft_strcmp(readir->d_name, "."))
+		readir->d_name[0] == '.' && ft_strcmp(readir->d_name, ".") &&
+			ft_strcmp(readir->d_name, ".."))
 			;
 		else
 			ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
@@ -154,7 +155,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 				!ft_strcmp(env->lst_first->path_name, "..")))
 				env->lst_first = env->lst_first->next;
 			if (env->lst_first && env->lst_first->law[0] == 'd' &&
-			env->lst_first->size_lnk > 2 && ft_strcmp(env->lst_first->path_name, "."))
+			env->lst_first->size_lnk > 2 && ft_strcmp(env->lst_first->path_name, ".."))
 			{
 				if (ft_strstr(path_tmp, "/.."))
 					free(path_tmp);
