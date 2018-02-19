@@ -33,7 +33,7 @@ all: 		$(NAME)
 
 $(NAME):	$(OBJS)
 	@make -C libft/
-	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a  -L/ -lncurses -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -o $(NAME)
 
 clean:
 	@make -C libft/ clean

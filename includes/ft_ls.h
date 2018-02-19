@@ -21,10 +21,7 @@
 # include <sys/types.h>
 # include "./../libft/libft.h"
 # include <sys/ioctl.h>
-# include <termios.h>
-# include <termcap.h>
-# include <curses.h>
-# include <term.h>
+# include <errno.h>
 
 typedef struct		s_liste
 {

@@ -12,6 +12,17 @@
 
 #include "includes/ft_ls.h"
 
+static void			ft_print_error(char *path)
+{
+	char			*str;
+
+	str = ft_strrchr(path, '/');
+	if (!str)
+		ft_printf("ls: %s: %s\n",  path, strerror(errno));
+	else
+		ft_printf("ls: %s: %s\n",  str + 1, strerror(errno));
+}
+
 static void			ft_stock(struct dirent *readir, char *path)
 {
 	int				i;
@@ -26,7 +37,7 @@ void			ft_print_file(t_env *env, struct dirent *readir, char *path)
 {
 	if ((lstat(path, &env->s)) == -1)
 	{
-		perror("stat");
+		ft_print_error(path);
 		return ;
 	}
 	readir = (struct dirent *)malloc(sizeof(struct dirent));
@@ -52,9 +63,7 @@ static char			*ft_print(char *path, int i)
 
 	j = 0;
 	if (path[0] == '.' && path[1] == '/' && (ft_strlen(path) == 2))
-	{
 		return (ft_strdup("."));
-	}
 	if (path[0] == '.')
 	{
 		tmp[j++] = path[i++];
@@ -86,14 +95,16 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	path_tmp = "";
 	if (!(dr = opendir(av)))
 	{
-		perror("opendir");
-		ft_print_file(env, readir = NULL, av);
+		if (errno == 13)
+			ft_print_error(av);
+		else
+			ft_print_file(env, readir = NULL, av);
 		return ;
 	}
 	while ((readir = readdir(dr)))
 	{
 		if ((lstat(av, &env->s)) == -1)
-			perror("stat");
+			ft_print_error(av);
 		if ((S_ISLNK(env->s.st_mode) && av[ft_strlen(av) - 1] != '/') ||
 		env->flags & (1 << 8))
 		{
