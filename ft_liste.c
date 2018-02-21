@@ -6,15 +6,34 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:12 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/16 18:02:02 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/21 15:28:01 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
 
-static void		ft_law_file(mode_t st_mode, char **law)
+static char		ft_acl_attr(t_env *env, char **law)
 {
-	*law = (char*)malloc(11);
+	if (S_ISUID & env->s.st_mode)
+		(*law)[3] = ((*law)[3] == '-') ? 'S' : 's';
+	if (S_ISGID & env->s.st_mode)
+		(*law)[6] = ((*law)[6] == '-') ? 'S' : 's';
+	if (S_ISVTX & env->s.st_mode)
+		(*law)[9] = ((*law)[9] == '-') ? 'T' : 't';
+	if (listxattr(env->path_file, 0, 1, XATTR_NOFOLLOW) > 0)
+		return ('@');
+	else
+	{
+		if (!acl_get_file(env->path_file, ACL_TYPE_EXTENDED))
+			return ('\0');
+		else
+			return ('+');
+	}
+}
+
+static void		ft_law_file(mode_t st_mode, char **law, t_env *env)
+{
+	*law = (char*)malloc(12);
 	if (S_ISDIR(st_mode))
 		(*law)[0] = 'd';
 	else if (S_ISFIFO(st_mode))
@@ -38,7 +57,8 @@ static void		ft_law_file(mode_t st_mode, char **law)
 	(*law)[7] = (st_mode & S_IROTH) ? 'r' : '-';
 	(*law)[8] = (st_mode & S_IWOTH) ? 'w' : '-';
 	(*law)[9] = (st_mode & S_IXOTH) ? 'x' : '-';
-	(*law)[10] = 0;
+	(*law)[10] = ft_acl_attr(env, law);
+	(*law)[11] = 0;
 }
 
 t_liste			*ft_listenew(t_env *env, struct dirent *dr)
@@ -47,7 +67,7 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 
 	if (!(new = (t_liste*)malloc(sizeof(*new))) || !env)
 		return (0);
-	ft_law_file(env->s.st_mode, &new->law);
+	ft_law_file(env->s.st_mode, &new->law, env);
 	new->name_root = ft_strdup(env->pass->pw_name);
 	new->group = ft_strdup(env->grp->gr_name);
 	new->size_lnk = env->s.st_nlink;

@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 18:34:15 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/17 18:54:35 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/21 15:16:18 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include "./../libft/libft.h"
 # include <sys/ioctl.h>
 # include <errno.h>
+# include <sys/xattr.h>
+# include <sys/acl.h>
 
 typedef struct		s_liste
 {
