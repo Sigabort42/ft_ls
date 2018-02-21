@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/21 15:17:37 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:23:24 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 	path_tmp = "";
 	if (!(dr = opendir(av)))
 	{
-//		env->path_file = av;
 		if (errno == 13)
 			ft_print_error(av);
 		else
@@ -119,7 +118,13 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 		env->path_file = ft_strjoin(av, "/");
 		env->path_file = ft_strjoin_free(env->path_file, ft_strdup(readir->d_name));
 		if ((lstat(env->path_file, &env->s)) == -1)
-			perror("stat");
+		{
+			if (errno == 13)
+			{
+				ft_print_error(av);
+				return ;
+			}
+		}
 		if ((env->pass = getpwuid(env->s.st_uid)) == 0)
 		{
 			if (env->s.st_uid == 1000)

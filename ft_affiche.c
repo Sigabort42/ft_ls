@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:45 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/17 19:24:36 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/21 18:23:12 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		ft_affiche(t_env *env, int tri)
 {
 	t_liste *tmp;
 	int     total;
- 
+
 	total = 0;
 	if (!env->lst_first)
 		exit(EXIT_FAILURE);
