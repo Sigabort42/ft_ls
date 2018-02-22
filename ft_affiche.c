@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:45 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/21 18:23:12 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/22 17:45:14 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void     ft_affiche2(t_env *env, int tri)
 	t_liste *tmp;
 
 	tmp = (tri == 0) ? env->lst_first : env->lst_last;
-	tmp = ((env->flags & (1 << 0)) || env->flags & (1 << 6) || env->flags & (1 << 3) ||
-	env->lst_first == env->lst_last) ? tmp : tmp->next;
+	tmp = ((env->flags & (1 << 0)) || env->flags & (1 << 6) ||
+	env->flags & (1 << 3) || env->lst_first == env->lst_last) ? tmp : tmp->next;
 	while (tmp)
 	{
 		if (!(env->flags & (1 << 0)) && tmp->path_name[0] == '.')
@@ -67,6 +67,7 @@ void		ft_affiche(t_env *env, int tri)
 		exit(EXIT_FAILURE);
 	if (env->flags & (1 << 1) && env->lst_first != env->lst_last)
 	{
+		ft_printf("%s:\n", env->path);
 		tmp = env->lst_first;
 		while (tmp)
 		{

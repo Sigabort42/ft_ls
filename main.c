@@ -6,20 +6,42 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/21 17:50:00 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/22 18:55:52 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
 
-static char			**ft_tri_params(char **av)
+static void			ft_tri_liste(t_list **lst)
+{
+	t_list			*tmp;
+	t_list			*addr;
+
+	tmp = *lst;
+	while (tmp && tmp->next)
+	{
+		printf("boucle no %s %s %s\n", tmp->content, tmp->next->content, (*lst)->content);
+		while (ft_strcmp(tmp->content, tmp->next->content) > 0)
+		{
+			printf("boucle %s %s %s\n", tmp->content, tmp->next->content, (*lst)->content);
+			if (tmp == *lst)
+				*lst = tmp->next;
+			addr = tmp->next;
+			tmp->next = tmp->next->next;
+			addr->next = tmp;
+//			tmp = first;
+		}
+		tmp = tmp->next;
+	}
+}
+
+char			**ft_tri_params(char **av)
 {
 	int			i;
 	t_list		*lst_file;
 	t_list		*lst_dir;
 	t_list		*tmp;
 	t_list		*tmp2;
-	t_list		*addr;
 	char		**avt;
 
 	i = 0;
@@ -28,57 +50,32 @@ static char			**ft_tri_params(char **av)
 	while (av[i])
 	{
 		if (!(opendir(av[i])))
+		{
+			printf("av==%s\n", av[i]);
 			ft_lstpushback(&lst_file, ft_lstnew(av[i], 1));
+		}
 		else
 			ft_lstpushback(&lst_dir, ft_lstnew(av[i], 1));
 		i++;
 	}
+	if (lst_file)
+		ft_tri_liste(&lst_file);
+	if (lst_dir)
+		ft_tri_liste(&lst_dir);
 	tmp = lst_file;
-	tmp2 = lst_dir;
-	while (tmp->next)
-	{
-		if (ft_strcmp(tmp->content, tmp->next->content) > 0)
-		{
-			if (lst_file == tmp)
-				lst_file = tmp->next;
-			addr = tmp->next;
-			tmp->next = tmp->next->next;
-			addr->next = tmp;
-			tmp = lst_file;
-		}
-		tmp = tmp->next;
-	}
-	while (tmp2->next)
-	{
-		if (ft_strcmp(tmp2->content, tmp2->next->content) > 0)
-		{
-			if (lst_dir == tmp2)
-				lst_dir = tmp2->next;
-			addr = tmp2->next;
-			tmp2->next = tmp2->next->next;
-			addr->next = tmp2;
-			tmp2 = lst_dir;
-		}
-		tmp2 = tmp2->next;
-	}
-	tmp = lst_file;
-	tmp2 = lst_dir;
 	while (tmp)
 	{
-		printf("file == %s\n", (char*)tmp->content);
+		printf("lol=%s\n", tmp->content);
 		tmp = tmp->next;
 	}
-	while (tmp2)
-	{
-		printf("dir == %s|%d\n", (char*)tmp2->content, i);
-		tmp2 = tmp2->next;
-	}	
-	avt = (char **)malloc(sizeof(char*) * i + 1);
+	if (!(avt = (char **)malloc(sizeof(char*) * (i + 1))))
+		return (0);
 	i = 0;
 	tmp = lst_file;
 	tmp2 = lst_dir;
 	while (tmp)
 	{
+		printf("tmp==%s\n", (char*)tmp->content);
 		avt[i++] = ft_strdup(tmp->content);
 		tmp = tmp->next;
 	}

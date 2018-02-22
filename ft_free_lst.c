@@ -46,4 +46,6 @@ void			ft_free_lst(t_env *env)
 	(tmp->next) ? tmp->next->prev = 0 : 0;
 	free(tmp);
 	tmp = 0;
+	env->lst_first = 0;
+	env->lst_last = 0;
 }
