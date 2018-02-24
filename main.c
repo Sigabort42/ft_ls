@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/22 18:55:52 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/24 16:47:42 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,25 @@ static void			ft_tri_liste(t_list **lst)
 	t_list			*addr;
 
 	tmp = *lst;
-	while (tmp && tmp->next)
+	while (tmp && tmp->next && tmp->next->next)
 	{
-		printf("boucle no %s %s %s\n", tmp->content, tmp->next->content, (*lst)->content);
-		while (ft_strcmp(tmp->content, tmp->next->content) > 0)
+		while (ft_strcmp(tmp->next->content, tmp->next->next->content) > 0)
 		{
-			printf("boucle %s %s %s\n", tmp->content, tmp->next->content, (*lst)->content);
-			if (tmp == *lst)
-				*lst = tmp->next;
-			addr = tmp->next;
-			tmp->next = tmp->next->next;
-			addr->next = tmp;
-//			tmp = first;
+			addr = tmp->next->next;
+			tmp->next->next = addr->next;
+			addr->next = tmp->next;
+			tmp->next = addr;
+			tmp = *lst;
 		}
-		tmp = tmp->next;
+		if (ft_strcmp(tmp->content, tmp->next->content) > 0)
+		{
+			addr = tmp->next;
+			tmp->next = addr->next;
+			addr->next = tmp;
+			*lst = addr;
+		}
+		else
+			tmp = tmp->next;
 	}
 }
 
@@ -50,10 +55,7 @@ char			**ft_tri_params(char **av)
 	while (av[i])
 	{
 		if (!(opendir(av[i])))
-		{
-			printf("av==%s\n", av[i]);
 			ft_lstpushback(&lst_file, ft_lstnew(av[i], 1));
-		}
 		else
 			ft_lstpushback(&lst_dir, ft_lstnew(av[i], 1));
 		i++;
@@ -64,10 +66,7 @@ char			**ft_tri_params(char **av)
 		ft_tri_liste(&lst_dir);
 	tmp = lst_file;
 	while (tmp)
-	{
-		printf("lol=%s\n", tmp->content);
 		tmp = tmp->next;
-	}
 	if (!(avt = (char **)malloc(sizeof(char*) * (i + 1))))
 		return (0);
 	i = 0;
@@ -75,7 +74,6 @@ char			**ft_tri_params(char **av)
 	tmp2 = lst_dir;
 	while (tmp)
 	{
-		printf("tmp==%s\n", (char*)tmp->content);
 		avt[i++] = ft_strdup(tmp->content);
 		tmp = tmp->next;
 	}
@@ -109,9 +107,6 @@ int				main(int argc, char **argv)
 	else
 	{
 		avt = ft_tri_params(&argv[i]);
-		i = 0;
-		while (avt[i])
-			printf("ici=>>>|%s\n", avt[i++]);
 		i = 0;
 		while (avt[i])
 		{

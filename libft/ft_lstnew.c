@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 04:26:41 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/22 18:06:41 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/24 16:48:03 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_list		*ft_lstnew(void const *content, size_t content_size)
 		new->next = 0;
 		return (new);
 	}
-	printf("content===%s\n", (char*)content);
 	new->content = (void*)ft_strdup((char*)content);
 	new->content_size = content_size;
 	new->next = 0;
