@@ -57,6 +57,7 @@ int			ft_parse(char **av, t_env *env)
 
 	i = 1;
 	j = 0;
+	ft_strcpy(env->flags_stock, "adfgGlrRtui");
 	while (av[i])
 	{
 		while (av[i][j])

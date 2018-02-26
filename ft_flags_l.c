@@ -12,14 +12,14 @@
 
 #include "includes/ft_ls.h"
 
-void     ft_flags_a(t_liste *tmp)
+void	ft_flags_a(t_liste *tmp)
 {
 	if (!tmp)
 		exit(EXIT_FAILURE);
 	ft_printf("%s\n", tmp->path_name);
 }
 
-void     ft_flags_l(t_liste *tmp)
+void	ft_flags_l(t_liste *tmp)
 {
 	if (!tmp)
 		exit(EXIT_FAILURE);

@@ -61,6 +61,20 @@ static void		ft_law_file(mode_t st_mode, char **law, t_env *env)
 	(*law)[11] = 0;
 }
 
+static void		ft_listenew2(t_env *env, t_liste *new)
+{
+	if (new->law[0] == 'b' || new->law[0] == 'c')
+	{
+		new->major = major(env->s.st_rdev);
+		new->minor = minor(env->s.st_rdev);
+	}
+	if (new->law[0] == 'l')
+	{
+		new->path_name_link = ft_strnew(50);
+		readlink(env->path_file, new->path_name_link, 50);
+	}
+}
+
 t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 {
 	t_liste		*new;
@@ -80,16 +94,7 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 	new->date = ft_strdup(ctime(&env->s.st_mtime));
 	new->date[24] = 0;
 	new->path_name = ft_strdup(dr->d_name);
-	if (new->law[0] == 'b' || new->law[0] == 'c')
-	{
-		new->major = major(env->s.st_rdev);
-		new->minor = minor(env->s.st_rdev);
-	}
-	if (new->law[0] == 'l')
-	{
-		new->path_name_link = ft_strnew(50);
-		readlink(env->path_file, new->path_name_link, 50);
-	}
+	ft_listenew2(env, new);
 	new->next = 0;
 	new->prev = 0;
 	return (new);

@@ -12,6 +12,19 @@
 
 #include "includes/ft_ls.h"
 
+static void			ft_tri_liste2(t_list *tmp, t_list **lst)
+{
+	t_list			*addr;
+
+	if (tmp && tmp->next && ft_strcmp(tmp->content, tmp->next->content) > 0)
+	{
+		addr = tmp->next;
+		tmp->next = addr->next;
+		addr->next = tmp;
+		*lst = addr;
+	}
+}
+
 static void			ft_tri_liste(t_list **lst)
 {
 	t_list			*tmp;
@@ -38,50 +51,49 @@ static void			ft_tri_liste(t_list **lst)
 		else
 			tmp = tmp->next;
 	}
+	ft_tri_liste2(tmp, lst);
 }
 
-char			**ft_tri_params(char **av)
+
+static void		ft_tri_params2(char **avt, t_list *lst, int *i)
 {
-	int			i;
+	t_list		*tmp;
+
+	tmp = lst;
+	while (tmp)
+	{
+		avt[*i] = ft_strdup(tmp->content);
+		tmp = tmp->next;
+		*i = *i + 1;
+	}
+}
+
+static char		**ft_tri_params(char **av)
+{
+	int		i;
 	t_list		*lst_file;
 	t_list		*lst_dir;
-	t_list		*tmp;
-	t_list		*tmp2;
 	char		**avt;
+	DIR		*dr;
 
 	i = 0;
 	lst_file = 0;
 	lst_dir = 0;
 	while (av[i])
 	{
-		if (!(opendir(av[i])))
+		if (!(dr = opendir(av[i])))
 			ft_lstpushback(&lst_file, ft_lstnew(av[i], 1));
 		else
 			ft_lstpushback(&lst_dir, ft_lstnew(av[i], 1));
 		i++;
+		closedir(dr);
 	}
-	if (lst_file)
-		ft_tri_liste(&lst_file);
-	if (lst_dir)
-		ft_tri_liste(&lst_dir);
-	tmp = lst_file;
-	while (tmp)
-		tmp = tmp->next;
-	if (!(avt = (char **)malloc(sizeof(char*) * (i + 1))))
-		return (0);
-	i = 0;
-	tmp = lst_file;
-	tmp2 = lst_dir;
-	while (tmp)
-	{
-		avt[i++] = ft_strdup(tmp->content);
-		tmp = tmp->next;
-	}
-	while (tmp2)
-	{
-		avt[i++] = ft_strdup(tmp2->content);
-		tmp2 = tmp2->next;
-	}
+	(lst_file) ? ft_tri_liste(&lst_file) : 0;
+	(i = 0 && lst_dir) ? ft_tri_liste(&lst_dir) : 0;
+	(!(avt = (char **)malloc(sizeof(char*) * (i + 1)))) ? exit(1) : 0;
+	ft_tri_params2(avt, lst_file, &i);
+	ft_tri_params2(avt, lst_dir, &i);
+	ft_free_lst_libft(lst_file, lst_dir);
 	avt[i] = 0;
 	return (avt);
 }
@@ -96,7 +108,6 @@ int				main(int argc, char **argv)
 	env.lst_first = 0;
 	if (argc < 1)
 		return (0);
-	ft_strcpy(env.flags_stock, "adfgGlrRtui");
 	i = ft_parse(argv, &env);
 	if (i == 0 || !argv[i])
 	{

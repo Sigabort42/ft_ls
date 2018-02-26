@@ -25,6 +25,10 @@ SRCS	=	ft_parse.c \
 			ft_affiche.c \
 			ft_free_lst.c \
 			ft_tri.c \
+			ft_free_lst_libft.c \
+			ft_print_file.c \
+			ft_print_error.c \
+			ft_print.c \
 			main.c
 
 OBJS	=	$(SRCS:.c=.o)

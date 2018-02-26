@@ -12,7 +12,7 @@
 
 #include "includes/ft_ls.h"
 
-static void     ft_affiche3(t_env *env, t_liste *tmp)
+static void	ft_affiche3(t_env *env, t_liste *tmp)
 {
 	if ((tmp->path_name[0] != '.' && tmp->law[0] == 'l') && 
 	(env->flags & (1 << 1)))
@@ -29,9 +29,9 @@ static void     ft_affiche3(t_env *env, t_liste *tmp)
 	}
 }
 
-static void     ft_affiche2(t_env *env, int tri)
+static void	ft_affiche2(t_env *env, int tri)
 {
-	t_liste *tmp;
+	t_liste	*tmp;
 
 	tmp = (tri == 0) ? env->lst_first : env->lst_last;
 	tmp = ((env->flags & (1 << 0)) || env->flags & (1 << 6) ||
@@ -59,15 +59,14 @@ static void     ft_affiche2(t_env *env, int tri)
 
 void		ft_affiche(t_env *env, int tri)
 {
-	t_liste *tmp;
-	int     total;
+	t_liste	*tmp;
+	int	total;
 
 	total = 0;
 	if (!env->lst_first)
 		exit(EXIT_FAILURE);
 	if (env->flags & (1 << 1) && env->lst_first != env->lst_last)
 	{
-		ft_printf("%s:\n", env->path);
 		tmp = env->lst_first;
 		while (tmp)
 		{

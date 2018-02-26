@@ -16,6 +16,19 @@ void			ft_free_node(t_liste **node)
 	free(*node);
 }
 
+void			ft_free_lst2(t_liste *tmp)
+{
+	free(tmp->name_root);
+	free(tmp->group);
+	free(tmp->path_name);
+	free(tmp->date);
+	(tmp->law[0] == 'l') ? free(tmp->path_name_link) : 0;
+	free(tmp->law);
+	(tmp->next) ? tmp->next->prev = 0 : 0;
+	free(tmp);
+	tmp = 0;
+}
+
 void			ft_free_lst(t_env *env)
 {
 	t_liste		*tmp;
@@ -37,15 +50,5 @@ void			ft_free_lst(t_env *env)
 		free(tmp->next);
 		tmp->next = 0;
 	}
-	free(tmp->name_root);
-	free(tmp->group);
-	free(tmp->path_name);
-	free(tmp->date);
-	(tmp->law[0] == 'l') ? free(tmp->path_name_link) : 0;
-	free(tmp->law);
-	(tmp->next) ? tmp->next->prev = 0 : 0;
-	free(tmp);
-	tmp = 0;
-	env->lst_first = 0;
-	env->lst_last = 0;
+	ft_free_lst2(tmp);
 }

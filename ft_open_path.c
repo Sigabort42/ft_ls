@@ -12,79 +12,6 @@
 
 #include "includes/ft_ls.h"
 
-static void			ft_print_error(char *path)
-{
-	char			*str;
-
-	str = ft_strrchr(path, '/');
-	if (!str)
-		ft_printf("ls: %s: %s\n",  path, strerror(errno));
-	else
-		ft_printf("ls: %s: %s\n",  str + 1, strerror(errno));
-}
-
-static void			ft_stock(struct dirent *readir, char *path)
-{
-	int				i;
-
-	i = ft_strlen(path) - 1;
-	while (i >= 0  && path[i] != '/')
-		i--;
-	ft_strcpy(readir->d_name, &path[++i]);
-}
-
-void			ft_print_file(t_env *env, struct dirent *readir, char *path)
-{
-	if ((lstat(path, &env->s)) == -1)
-	{
-		ft_print_error(path);
-		return ;
-	}
-	readir = (struct dirent *)malloc(sizeof(struct dirent));
-	ft_stock(readir, path);
-	env->pass = getpwuid(env->s.st_uid);
-	env->grp = getgrgid(env->s.st_gid);
-	env->lst_first = ft_listenew(env, readir);
-	env->lst_last = ft_listelast(env->lst_first);
-	ft_affiche(env, 0);
-	free(readir);
-}
-
-static void			ft_print2(int *i, int *j, char *tmp)
-{
-	*i = *i + 3;
-	while (*j > 0 && tmp[*j] != '/')
-		*j = *j - 1;
-}
-
-static char			*ft_print(char *path, int i)
-{
-	char			tmp[1000];
-	int				j;
-
-	j = 0;
-	if (path[0] == '.' && path[1] == '/' && (ft_strlen(path) == 2))
-		return (ft_strdup("."));
-	if (path[0] == '.')
-	{
-		tmp[j++] = path[i++];
-		(path[1] == '/') ? tmp[j++] = path[i++] : 0;
-	}
-	while (path[i])
-	{
-		while (path[i] && path[i] != '/')
-			tmp[j++] = path[i++];
-		if (path[i] && path[i + 1] == '.' && path[i + 2] == '.')
-			ft_print2(&i, &j, tmp);
-		else if (path[i] && path[i] == '/' && tmp[j - 1] != '/')
-			tmp[j++] = path[i++];
-		else if (path[i] && path[i] == '/' && tmp[j - 1] == '/')
-			i++;
-	}
-	tmp[j] = 0;
-	return (ft_strdup(tmp));
-}
-
 void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 {
 	DIR				*dr;
@@ -146,7 +73,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			continue;
 		if (!(env->flags & (1 << 0)) && (!(env->flags & (1 << 6))) &&
 		readir->d_name[0] == '.' && ft_strcmp(readir->d_name, ".") &&
-			ft_strcmp(readir->d_name, ".."))
+		ft_strcmp(readir->d_name, ".."))
 			;
 		else
 			ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
@@ -161,8 +88,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 		(!(env->flags & (1 << 4))) ? ft_tri(env, 0) : ft_tri(env, 1);
 	env->lst_last = ft_listelast(env->lst_first);
 	(!(env->flags & (1 << 3))) ? ft_affiche(env, 0) : ft_affiche(env, 1);
-	if (!(env->flags & (1 << 2)))
-		ft_free_lst(env);
+	(!(env->flags & (1 << 2))) ? ft_free_lst(env) : 0;
 	closedir(dr);
 	if (env->flags & (1 << 2) && env->lst_first)
 	{
@@ -173,7 +99,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 				!ft_strcmp(env->lst_first->path_name, "..")))
 				env->lst_first = env->lst_first->next;
 			if (env->lst_first && env->lst_first->law[0] == 'd' &&
-			env->lst_first->size_lnk > 2 && ft_strcmp(env->lst_first->path_name, ".."))
+			env->lst_first->size_lnk >= 2 && ft_strcmp(env->lst_first->path_name, ".."))
 			{
 				if (ft_strstr(path_tmp, "/.."))
 					free(path_tmp);

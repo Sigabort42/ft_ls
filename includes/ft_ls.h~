@@ -74,7 +74,6 @@ void				ft_free_lst(t_env *env);
 void				ft_free_node(t_liste **node);
 void				ft_tri(t_env *env, int tri);
 void				ft_print_error(char *path);
-char                            *ft_print(char *path, int i);
 void				ft_print_file(t_env *env, struct dirent *readir,
 						char *path);
 void				ft_free_lst_libft(t_list *lst_file,
