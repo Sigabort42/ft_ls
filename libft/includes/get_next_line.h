@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 17:38:55 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/17 17:15:14 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 17:29:51 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 
 typedef struct	s_varia
 {
-	int	ret;
-	char	*tab[4096];
-	char	*rst;
-	char	*buf;
-}		t_varia;
+	int			ret;
+	char		*tab[4096];
+	char		*rst;
+	char		*buf;
+}				t_varia;
 
-int		get_next_line(int fd, char **line);
+int				get_next_line(int fd, char **line);
 
 #endif

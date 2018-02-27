@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 16:28:58 by elbenkri          #+#    #+#             */
-/*   Updated: 2017/12/04 15:19:45 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 17:32:37 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char				*ft_strncat(char *s1, const char *s2, size_t n);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strnstr(const char *haystack,
-const char *needle, size_t len);
+								const char *needle, size_t len);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 int					ft_atoi(const char *str);
@@ -94,6 +94,6 @@ t_list				*ft_lstlast(t_list *lst);
 t_list				*ft_lstpushparams(int argc, char **argv);
 char				*ft_strcdup(char *s1, int c);
 char				*ft_strjoin_free(char *s1, char *s2);
-int				get_next_line(int fd, char **line);
+int					get_next_line(int fd, char **line);
 
 #endif

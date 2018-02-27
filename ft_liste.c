@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:12 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/22 18:01:04 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:48:51 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static char		ft_acl_attr(t_env *env, char **law)
 
 static void		ft_law_file(mode_t st_mode, char **law, t_env *env)
 {
-	*law = (char*)malloc(12);
 	if (S_ISDIR(st_mode))
 		(*law)[0] = 'd';
 	else if (S_ISFIFO(st_mode))
@@ -81,6 +80,7 @@ t_liste			*ft_listenew(t_env *env, struct dirent *dr)
 
 	if (!(new = (t_liste*)malloc(sizeof(*new))) || !env)
 		return (0);
+	new->law = ft_strnew(12);
 	ft_law_file(env->s.st_mode, &new->law, env);
 	new->name_root = ft_strdup(env->pass->pw_name);
 	new->group = ft_strdup(env->grp->gr_name);
@@ -106,7 +106,7 @@ void			ft_liste_pushback(t_liste **lst, t_liste *elem)
 
 	if (!lst)
 		return ;
-	if(!(*lst))
+	if (!(*lst))
 	{
 		*lst = elem;
 		return ;
@@ -116,31 +116,4 @@ void			ft_liste_pushback(t_liste **lst, t_liste *elem)
 		tmp = tmp->next;
 	tmp->next = elem;
 	elem->prev = tmp;
-}
-
-t_liste			*ft_listelast(t_liste *lst)
-{
-	t_liste		*tmp;
-
-	if (!lst)
-		return (0);
-	tmp = lst;
-	while (tmp->next)
-		tmp = tmp->next;
-	return (tmp);
-}
-
-int				ft_listecount(t_liste *lst)
-{
-	int			i;
-	t_liste		*tmp;
-
-	i = 0;
-	tmp = lst;
-	while (tmp)
-	{
-		tmp = tmp->next;
-		i++;
-	}
-	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:23 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/16 18:10:34 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 18:14:25 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@ static void	ft_flags_bit(char c, t_env *env)
 		env->flags |= (1 << 10);
 }
 
-static void	ft_affiche_erreur(char c)
+static void	ft_affiche_erreur(char c, int argc)
 {
+	(void)argc;
 	ft_putstr("ls: illegal option -- ");
 	write(1, &c, 1);
 	ft_putstr("\nusage: ls [-adfgGlrRtui] [file ...]\n");
 	exit(EXIT_FAILURE);
 }
 
-int			ft_parse(char **av, t_env *env)
+int			ft_parse(char **av, t_env *env, int argc)
 {
 	int		i;
 	int		j;
@@ -68,9 +69,8 @@ int			ft_parse(char **av, t_env *env)
 			{
 				if (!ft_strncmp(av[i], "--", 2))
 					return (i + 1);
-				if (!(c = ft_strchr(env->flags_stock, av[i][++j])))
-					ft_affiche_erreur(av[i][j]);
-				ft_flags_bit(c[0], env);
+				(!(c = ft_strchr(env->flags_stock, av[i][++j]))) ?
+					ft_affiche_erreur(av[i][j], argc) : ft_flags_bit(c[0], env);
 			}
 		}
 		j = 0;

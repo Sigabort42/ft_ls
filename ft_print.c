@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/27 16:31:45 by elbenkri          #+#    #+#             */
+/*   Updated: 2018/02/27 16:32:24 by elbenkri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/ft_ls.h"
 
 static void			ft_print2(int *i, int *j, char *tmp)
@@ -9,15 +21,15 @@ static void			ft_print2(int *i, int *j, char *tmp)
 
 char				*ft_print(char *path, int i)
 {
-	char                    tmp[1000];
-	int                             j;
+	char			tmp[1000];
+	int				j;
 
 	j = 0;
 	if (path[0] == '.' && path[1] == '/' && (ft_strlen(path) == 2))
 		return (ft_strdup("."));
 	if (path[0] == '.')
 	{
-	 	tmp[j++] = path[i++];
+		tmp[j++] = path[i++];
 		(path[1] == '/') ? tmp[j++] = path[i++] : 0;
 	}
 	while (path[i])

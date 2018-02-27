@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/22 17:54:07 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 19:47:12 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			env->grp = getgrgid(env->s.st_gid);
 			env->path_file = av;
 			env->lst_first = ft_listenew(env, readir);
-			break;
+			break ;
 		}
 		env->path_file = ft_strjoin(av, "/");
 		env->path_file = ft_strjoin_free(env->path_file, ft_strdup(readir->d_name));

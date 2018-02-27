@@ -6,15 +6,15 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/24 16:47:42 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 18:11:53 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
 
-static void			ft_tri_liste2(t_list *tmp, t_list **lst)
+static void		ft_tri_liste2(t_list *tmp, t_list **lst)
 {
-	t_list			*addr;
+	t_list		*addr;
 
 	if (tmp && tmp->next && ft_strcmp(tmp->content, tmp->next->content) > 0)
 	{
@@ -25,10 +25,10 @@ static void			ft_tri_liste2(t_list *tmp, t_list **lst)
 	}
 }
 
-static void			ft_tri_liste(t_list **lst)
+static void		ft_tri_liste(t_list **lst)
 {
-	t_list			*tmp;
-	t_list			*addr;
+	t_list		*tmp;
+	t_list		*addr;
 
 	tmp = *lst;
 	while (tmp && tmp->next && tmp->next->next)
@@ -54,7 +54,6 @@ static void			ft_tri_liste(t_list **lst)
 	ft_tri_liste2(tmp, lst);
 }
 
-
 static void		ft_tri_params2(char **avt, t_list *lst, int *i)
 {
 	t_list		*tmp;
@@ -66,15 +65,16 @@ static void		ft_tri_params2(char **avt, t_list *lst, int *i)
 		tmp = tmp->next;
 		*i = *i + 1;
 	}
+	avt[*i] = 0;
 }
 
 static char		**ft_tri_params(char **av)
 {
-	int		i;
+	int			i;
 	t_list		*lst_file;
 	t_list		*lst_dir;
 	char		**avt;
-	DIR		*dr;
+	DIR			*dr;
 
 	i = 0;
 	lst_file = 0;
@@ -83,18 +83,17 @@ static char		**ft_tri_params(char **av)
 	{
 		if (!(dr = opendir(av[i])))
 			ft_lstpushback(&lst_file, ft_lstnew(av[i], 1));
-		else
+		else if (dr && !closedir(dr))
 			ft_lstpushback(&lst_dir, ft_lstnew(av[i], 1));
 		i++;
-		closedir(dr);
 	}
 	(lst_file) ? ft_tri_liste(&lst_file) : 0;
-	(i = 0 && lst_dir) ? ft_tri_liste(&lst_dir) : 0;
+	(lst_dir) ? ft_tri_liste(&lst_dir) : 0;
 	(!(avt = (char **)malloc(sizeof(char*) * (i + 1)))) ? exit(1) : 0;
+	i = 0;
 	ft_tri_params2(avt, lst_file, &i);
 	ft_tri_params2(avt, lst_dir, &i);
 	ft_free_lst_libft(lst_file, lst_dir);
-	avt[i] = 0;
 	return (avt);
 }
 
@@ -106,9 +105,7 @@ int				main(int argc, char **argv)
 
 	env.flags = 0;
 	env.lst_first = 0;
-	if (argc < 1)
-		return (0);
-	i = ft_parse(argv, &env);
+	i = ft_parse(argv, &env, argc);
 	if (i == 0 || !argv[i])
 	{
 		env.path = ft_strdup(".");
@@ -126,6 +123,5 @@ int				main(int argc, char **argv)
 			free(env.path);
 		}
 	}
-	ft_printf("fin : %b %d %s\n", env.flags, i, argv[i]);
-	while (42);
+	return (0);
 }

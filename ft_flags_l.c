@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:06 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/16 16:50:44 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:40:20 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_flags_l(t_liste *tmp)
 {
 	if (!tmp)
 		exit(EXIT_FAILURE);
-	else if (tmp->law[0] == 'b' || tmp->law[0]== 'c')
+	else if (tmp->law[0] == 'b' || tmp->law[0] == 'c')
 		ft_printf("%s %5u %s %7s %#7d,%#4d %.12s ",
 		tmp->law, tmp->size_lnk, tmp->name_root, tmp->group,
 		tmp->major, tmp->minor, &tmp->date[4]);

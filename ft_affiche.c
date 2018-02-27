@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:45 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/22 17:45:14 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 15:39:26 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_affiche3(t_env *env, t_liste *tmp)
 {
-	if ((tmp->path_name[0] != '.' && tmp->law[0] == 'l') && 
+	if ((tmp->path_name[0] != '.' && tmp->law[0] == 'l') &&
 	(env->flags & (1 << 1)))
 	{
 		ft_putstr(tmp->path_name);
@@ -60,7 +60,7 @@ static void	ft_affiche2(t_env *env, int tri)
 void		ft_affiche(t_env *env, int tri)
 {
 	t_liste	*tmp;
-	int	total;
+	int		total;
 
 	total = 0;
 	if (!env->lst_first)

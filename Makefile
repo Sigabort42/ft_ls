@@ -6,7 +6,7 @@
 #    By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/31 13:03:51 by elbenkri          #+#    #+#              #
-#    Updated: 2018/02/22 17:42:24 by elbenkri         ###   ########.fr        #
+#    Updated: 2018/02/27 17:58:47 by elbenkri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -28,6 +28,8 @@ SRCS	=	ft_parse.c \
 			ft_free_lst_libft.c \
 			ft_print_file.c \
 			ft_print_error.c \
+			ft_listcount.c \
+			ft_listlast.c \
 			ft_print.c \
 			main.c
 

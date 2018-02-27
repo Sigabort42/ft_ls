@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 18:34:15 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/21 15:16:18 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 18:12:33 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct		s_env
 	t_liste			*lst_last;
 }					t_env;
 
-int					ft_parse(char **av, t_env *env);
+int					ft_parse(char **av, t_env *env, int argc);
 void				ft_open_path(t_env *env, char *av, t_liste *tmp);
 t_liste				*ft_listenew(t_env *env, struct dirent *dr);
 void				ft_liste_pushback(t_liste **lst, t_liste *elem);
@@ -74,10 +74,9 @@ void				ft_free_lst(t_env *env);
 void				ft_free_node(t_liste **node);
 void				ft_tri(t_env *env, int tri);
 void				ft_print_error(char *path);
-char                            *ft_print(char *path, int i);
+char				*ft_print(char *path, int i);
 void				ft_print_file(t_env *env, struct dirent *readir,
 						char *path);
-void				ft_free_lst_libft(t_list *lst_file,
-						t_list *lst_dir);
+void				ft_free_lst_libft(t_list *lst_file, t_list *lst_dir);
 
 #endif

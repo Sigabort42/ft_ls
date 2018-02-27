@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:41:04 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/17 15:50:11 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/27 17:25:59 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,23 @@ static void	ft_tri_t2(t_env *env)
 	}
 }
 
+static int	ft_tri_t_split(t_env *env, t_liste **tmp_prev,
+							t_liste **tmp_next, t_liste **tmp)
+{
+	if (!(*tmp)->prev)
+	{
+		env->lst_first = *tmp_next;
+		(*tmp)->next = (*tmp_next)->next;
+		(*tmp_next)->next->prev = *tmp;
+		(*tmp)->prev = *tmp_next;
+		(*tmp_next)->next = *tmp;
+		(*tmp_next)->prev = *tmp_prev;
+		*tmp = env->lst_first;
+		return (1);
+	}
+	return (0);
+}
+
 static void	ft_tri_t(t_env *env)
 {
 	t_liste	*tmp_prev;
@@ -53,22 +70,12 @@ static void	ft_tri_t(t_env *env)
 		{
 			tmp_prev = tmp->prev;
 			tmp_next = tmp->next;
-			if (!tmp->prev)
-			{
-				env->lst_first = tmp_next;
-				tmp->next = tmp_next->next;
-				tmp_next->next->prev = tmp;
-				tmp->prev = tmp_next;
-				tmp_next->next = tmp;
-				tmp_next->prev = tmp_prev;
-				tmp = env->lst_first;
+			if (ft_tri_t_split(env, &tmp_prev, &tmp_next, &tmp))
 				continue;
-			}
 			tmp_prev->next = tmp_next;
 			tmp_next->prev = tmp_prev;
 			tmp->next = tmp_next->next;
-			if (tmp_next->next)
-				tmp_next->next->prev = tmp;
+			(tmp_next->next) ? tmp_next->next->prev = tmp : 0;
 			tmp_next->next = tmp;
 			tmp->prev = tmp_next;
 			tmp = env->lst_first;
@@ -79,10 +86,25 @@ static void	ft_tri_t(t_env *env)
 	ft_tri_t2(env);
 }
 
-void		ft_tri(t_env *env, int tri)
+static void	ft_tri2(t_liste **tmp, t_env *env)
 {
 	t_liste	*tmp_prev;
 	t_liste	*tmp_next;
+
+	tmp_prev = (*tmp)->prev;
+	tmp_next = (*tmp)->next;
+	tmp_prev->next = tmp_next;
+	tmp_next->prev = tmp_prev;
+	(*tmp)->next = tmp_next->next;
+	if (tmp_next->next)
+		tmp_next->next->prev = *tmp;
+	tmp_next->next = *tmp;
+	(*tmp)->prev = tmp_next;
+	*tmp = env->lst_first->next;
+}
+
+void		ft_tri(t_env *env, int tri)
+{
 	t_liste	*tmp;
 
 	if (tri == 0 && ft_listecount(env->lst_first) > 1)
@@ -91,18 +113,7 @@ void		ft_tri(t_env *env, int tri)
 		while (tmp->next)
 		{
 			if (ft_strcmp(tmp->path_name, tmp->next->path_name) > 0)
-			{
-				tmp_prev = tmp->prev;
-				tmp_next = tmp->next;
-				tmp_prev->next = tmp_next;
-				tmp_next->prev = tmp_prev;
-				tmp->next = tmp_next->next;
-				if (tmp_next->next)
-					tmp_next->next->prev = tmp;
-				tmp_next->next = tmp;
-				tmp->prev = tmp_next;
-				tmp = env->lst_first->next;
-			}
+				ft_tri2(&tmp, env);
 			else
 				tmp = tmp->next;
 		}
