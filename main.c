@@ -123,5 +123,6 @@ int				main(int argc, char **argv)
 			free(env.path);
 		}
 	}
+	while (42);
 	return (0);
 }

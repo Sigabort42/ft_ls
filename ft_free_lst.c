@@ -62,5 +62,6 @@ void			ft_free_lst(t_env *env)
 		free(tmp->next);
 		tmp->next = 0;
 	}
-	ft_free_lst2(tmp);
+	if (env->flags & (1 << 2))
+		ft_free_lst2(tmp);
 }

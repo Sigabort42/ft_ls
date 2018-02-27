@@ -14,7 +14,7 @@ NAME	=	ft_ls
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror
 
 SRCS	=	ft_parse.c \
 			ft_open_path.c \
@@ -31,6 +31,8 @@ SRCS	=	ft_parse.c \
 			ft_listcount.c \
 			ft_listlast.c \
 			ft_print.c \
+			ft_pass.c \
+			ft_open_path2.c \
 			main.c
 
 OBJS	=	$(SRCS:.c=.o)

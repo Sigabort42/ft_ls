@@ -76,8 +76,6 @@ void				ft_tri(t_env *env, int tri);
 void				ft_print_error(char *path);
 char				*ft_print(char *path, int i);
 int				ft_pass(t_env *env, int *flg);
-int				ft_open_path2(t_env *env, char *av, DIR *dr,
-						struct dirent *readir);
 void				ft_print_file(t_env *env, struct dirent *readir,
 						char *path);
 void				ft_free_lst_libft(t_list *lst_file, t_list *lst_dir);
