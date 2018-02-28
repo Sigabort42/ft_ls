@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_open_path2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/02/28 17:06:43 by elbenkri          #+#    #+#             */
+/*   Updated: 2018/02/28 17:29:26 by elbenkri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "includes/ft_ls.h"
 
 static int	ft_open22(char *av, t_env *env, struct dirent *readir)
@@ -5,7 +17,7 @@ static int	ft_open22(char *av, t_env *env, struct dirent *readir)
 	if ((lstat(av, &env->s)) == -1)
 		ft_print_error(av);
 	if ((S_ISLNK(env->s.st_mode) && av[ft_strlen(av) - 1] != '/' &&
-	     env->flags & (1 << 1)) || env->flags & (1 << 8))
+	env->flags & (1 << 1)) || env->flags & (1 << 8))
 	{
 		ft_strcpy(readir->d_name, av);
 		env->pass = getpwuid(env->s.st_uid);
@@ -29,8 +41,8 @@ static int	ft_flg(t_env *env, struct dirent *readir)
 	if ((env->grp = getgrgid(env->s.st_gid)) == 0)
 		return (1);
 	if (!(env->flags & (1 << 0)) && (!(env->flags & (1 << 6))) &&
-	    readir->d_name[0] == '.' && ft_strcmp(readir->d_name, ".") &&
-	    ft_strcmp(readir->d_name, ".."))
+		readir->d_name[0] == '.' && ft_strcmp(readir->d_name, ".") &&
+		ft_strcmp(readir->d_name, ".."))
 		;
 	else
 		ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
@@ -43,7 +55,7 @@ static int	ft_flg(t_env *env, struct dirent *readir)
 	return (0);
 }
 
-int	ft_open_path2(t_env *env, char *av, DIR *dr, struct dirent *readir)
+int			ft_open_path2(t_env *env, char *av, DIR *dr, struct dirent *readir)
 {
 	while ((readir = readdir(dr)))
 	{

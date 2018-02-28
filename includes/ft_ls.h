@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 18:34:15 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/27 18:12:33 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/28 17:09:00 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void				ft_free_node(t_liste **node);
 void				ft_tri(t_env *env, int tri);
 void				ft_print_error(char *path);
 char				*ft_print(char *path, int i);
-int				ft_pass(t_env *env, int *flg);
-int				ft_open_path2(t_env *env, char *av, DIR *dr,
+int					ft_pass(t_env *env, int *flg);
+int					ft_open_path2(t_env *env, char *av, DIR *dr,
 						struct dirent *readir);
 void				ft_print_file(t_env *env, struct dirent *readir,
 						char *path);

@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:04:12 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/27 15:48:51 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/28 17:37:31 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static char		ft_acl_attr(t_env *env, char **law)
 {
+	acl_t		acl;
 	if (S_ISUID & env->s.st_mode)
 		(*law)[3] = ((*law)[3] == '-') ? 'S' : 's';
 	if (S_ISGID & env->s.st_mode)
@@ -24,10 +25,13 @@ static char		ft_acl_attr(t_env *env, char **law)
 		return ('@');
 	else
 	{
-		if (!acl_get_file(env->path_file, ACL_TYPE_EXTENDED))
+		if (!(acl = acl_get_file(env->path_file, ACL_TYPE_EXTENDED)))
 			return ('\0');
 		else
+		{
+			free(acl);
 			return ('+');
+		}
 	}
 }
 

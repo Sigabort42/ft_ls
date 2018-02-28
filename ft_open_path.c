@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/27 19:47:12 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/28 17:05:57 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void			ft_after_recursive(t_env *env, char **path_tmp)
 		ft_free_lst(env);
 		env->lst_first = env->lst_first->next;
 	}
-
 }
 
 static void			ft_cible_dir(t_env *env)
