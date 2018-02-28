@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/28 17:11:29 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/02/28 18:39:43 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int				main(int argc, char **argv)
 			env.path = ft_strdup(avt[i]);
 			ft_open_path(&env, avt[i++], 0);
 			free(env.path);
+			free(avt[i - 1]);
 		}
 	}
 	while (42);
