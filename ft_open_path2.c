@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 17:06:43 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/28 19:00:07 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/01 19:09:59 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ int			ft_open_path2(t_env *env, char *av, DIR *dr, struct dirent *readir)
 		{
 			if (errno == 13)
 			{
-				if (env->s.st_mode & S_IXUSR)
+				free(env->path_file);
+				if (env->s.st_mode & S_IXGRP)
 					ft_print_error(av);
+				closedir(dr);
 				return (1);
 			}
 		}
