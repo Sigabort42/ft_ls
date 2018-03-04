@@ -106,6 +106,7 @@ int				main(int argc, char **argv)
 	env.flags = 0;
 	env.lst_first = 0;
 	i = ft_parse(argv, &env, argc);
+	env.i_file = i;
 	if (i == 0 || !argv[i])
 	{
 		env.path = ft_strdup(".");

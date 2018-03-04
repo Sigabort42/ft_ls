@@ -55,6 +55,7 @@ typedef struct		s_env
 	short			flags;
 	char			*path;
 	char			*path_file;
+	int			i_file;
 	t_liste			*lst_first;
 	t_liste			*lst_last;
 }					t_env;
@@ -69,7 +70,7 @@ void				ft_flags_g_maj(t_liste *tmp, int l);
 void				ft_flags_l(t_liste *tmp);
 void				ft_flags_a(t_liste *tmp);
 void				ft_flags_i(t_liste *tmp);
-void				ft_affiche(t_env *env, int tri);
+void				ft_affiche(t_env *env, int tri, char *av);
 void				ft_free_lst(t_env *env);
 void				ft_free_node(t_liste **node);
 void				ft_tri(t_env *env, int tri);

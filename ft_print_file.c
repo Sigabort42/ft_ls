@@ -34,7 +34,8 @@ void		ft_print_file(t_env *env, struct dirent *readir, char *path)
 	env->pass = getpwuid(env->s.st_uid);
 	env->grp = getgrgid(env->s.st_gid);
 	env->lst_first = ft_listenew(env, readir);
-	env->lst_last = ft_listelast(env->lst_first);
-	ft_affiche(env, 0);
+	env->lst_last = env->lst_first;
+	ft_affiche(env, 0, path);
+	ft_free_node(&env->lst_first);
 	free(readir);
 }

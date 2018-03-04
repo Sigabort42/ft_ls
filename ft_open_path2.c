@@ -78,7 +78,7 @@ int			ft_open_path2(t_env *env, char *av, DIR *dr, struct dirent *readir)
 	if (!(env->flags & (1 << 6)))
 		(!(env->flags & (1 << 4))) ? ft_tri(env, 0) : ft_tri(env, 1);
 	env->lst_last = ft_listelast(env->lst_first);
-	(!(env->flags & (1 << 3))) ? ft_affiche(env, 0) : ft_affiche(env, 1);
+	(!(env->flags & (1 << 3))) ? ft_affiche(env, 0, av) : ft_affiche(env, 1, av);
 	(!(env->flags & (1 << 2))) ? ft_free_lst(env) : 0;
 	closedir(dr);
 	return (0);

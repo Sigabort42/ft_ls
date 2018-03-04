@@ -57,7 +57,7 @@ static void	ft_affiche2(t_env *env, int tri)
 	}
 }
 
-void		ft_affiche(t_env *env, int tri)
+void		ft_affiche(t_env *env, int tri, char *av)
 {
 	t_liste	*tmp;
 	int		total;
@@ -65,6 +65,8 @@ void		ft_affiche(t_env *env, int tri)
 	total = 0;
 	if (!env->lst_first)
 		exit(EXIT_FAILURE);
+	if (env->i_file > 1 && !(env->flags & (1 << 2)))
+		ft_printf("%s:\n", av);
 	if (env->flags & (1 << 1) && env->lst_first != env->lst_last)
 	{
 		tmp = env->lst_first;

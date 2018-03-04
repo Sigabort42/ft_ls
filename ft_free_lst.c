@@ -12,7 +12,7 @@
 
 #include "includes/ft_ls.h"
 
-void			ft_free_node(t_liste **node)
+void	ft_free_node(t_liste **node)
 {
 	if (!(*node))
 		return ;
@@ -26,6 +26,7 @@ void			ft_free_node(t_liste **node)
 	(*node)->prev = 0;
 	(*node)->next = 0;
 	free(*node);
+	*node = 0;
 }
 
 void			ft_free_lst2(t_liste *tmp)
@@ -47,7 +48,7 @@ void			ft_free_lst(t_env *env)
 
 	if (!env->lst_first)
 		return ;
-	tmp = env->lst_first;
+	tmp = (env->flags & (1 << 2)) ? env->lst_first : env->lst_last;
 	while (tmp->prev)
 	{
 		free(tmp->name_root);
@@ -62,6 +63,11 @@ void			ft_free_lst(t_env *env)
 		free(tmp->next);
 		tmp->next = 0;
 	}
-	if (env->flags & (1 << 2))
+//	if (env->flags & (1 << 2))
 		ft_free_lst2(tmp);
+	if (!(env->flags & (1 << 2)))
+	{
+		env->lst_first = 0;
+		env->lst_last = 0;
+	}
 }
