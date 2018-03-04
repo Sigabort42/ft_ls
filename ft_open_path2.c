@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/28 17:06:43 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/04 20:17:08 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/04 20:33:28 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,10 @@
 static int	ft_open22(char *av, t_env *env, struct dirent *readir)
 {
 	if ((lstat(av, &env->s)) == -1)
-	{
-		ft_putstr("lstat\n\n");
 		ft_print_error(av);
-	}
 	if ((S_ISLNK(env->s.st_mode) && av[ft_strlen(av) - 1] != '/' &&
 	env->flags & (1 << 1)) || env->flags & (1 << 8))
 	{
-		ft_putstr("is_link\n\n");
 		ft_strcpy(readir->d_name, av);
 		env->pass = getpwuid(env->s.st_uid);
 		env->grp = getgrgid(env->s.st_gid);
@@ -35,21 +31,39 @@ static int	ft_open22(char *av, t_env *env, struct dirent *readir)
 	return (0);
 }
 
+static void	ft_free_grp(t_env *env, int flg)
+{
+	if (flg == 1)
+	{
+		free(env->pass->pw_name);
+		free(env->pass);
+	}
+	else if (flg == 2)
+	{
+		free(env->grp->gr_name);
+		free(env->grp);
+	}
+	else if (flg > 2)
+	{
+		free(env->pass->pw_name);
+		free(env->pass);
+		free(env->grp->gr_name);
+		free(env->grp);
+	}
+}
+
 static int	ft_flg(t_env *env, struct dirent *readir)
 {
 	int	flg;
 
 	flg = 0;
 	if (ft_pass(env, &flg))
-	{
-		ft_putstr("ft_pass\n\n\n");
 		return (1);
-	}
 	if ((env->grp = getgrgid(env->s.st_gid)) == 0)
 	{
-//		env->grp = (struct group*)malloc(sizeof(struct group));
-//		env->grp->gr_name = ft_itoa(env->s.st_gid);
-		return (1);
+		env->grp = (struct group*)malloc(sizeof(struct group));
+		env->grp->gr_name = ft_itoa(env->s.st_gid);
+		flg += 2;
 	}
 	if (!(env->flags & (1 << 0)) && (!(env->flags & (1 << 6))) &&
 		readir->d_name[0] == '.' && ft_strcmp(readir->d_name, ".") &&
@@ -59,10 +73,7 @@ static int	ft_flg(t_env *env, struct dirent *readir)
 		ft_liste_pushback(&env->lst_first, ft_listenew(env, readir));
 	free(env->path_file);
 	if (flg > 0)
-	{
-		free(env->pass->pw_name);
-		free(env->pass);
-	}
+		ft_free_grp(env, flg);
 	return (0);
 }
 
@@ -74,7 +85,6 @@ int			ft_open_path2(t_env *env, char *av, DIR *dr, struct dirent *readir)
 			break ;
 		if ((lstat(env->path_file, &env->s)) == -1)
 		{
-			ft_putstr("ft_open_path2\n\n");
 			if (errno == 13)
 			{
 				free(env->path_file);

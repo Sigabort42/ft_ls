@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/04 20:05:06 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/04 21:32:11 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,5 @@ int				main(int argc, char **argv)
 		avt = ft_tri_params(&argv[i], &i, &env);
 		ft_exec(&env, avt);
 	}
-	while (42);
 	return (0);
 }
