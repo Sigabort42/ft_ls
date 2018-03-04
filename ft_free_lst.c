@@ -6,13 +6,13 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 15:40:41 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/27 15:40:42 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/04 19:32:24 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
 
-void	ft_free_node(t_liste **node)
+void			ft_free_node(t_liste **node)
 {
 	if (!(*node))
 		return ;
@@ -63,8 +63,7 @@ void			ft_free_lst(t_env *env)
 		free(tmp->next);
 		tmp->next = 0;
 	}
-//	if (env->flags & (1 << 2))
-		ft_free_lst2(tmp);
+	ft_free_lst2(tmp);
 	if (!(env->flags & (1 << 2)))
 	{
 		env->lst_first = 0;

@@ -6,7 +6,7 @@
 #    By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/31 13:03:51 by elbenkri          #+#    #+#              #
-#    Updated: 2018/03/01 19:01:59 by elbenkri         ###   ########.fr        #
+#    Updated: 2018/03/04 19:38:56 by elbenkri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -33,6 +33,7 @@ SRCS	=	ft_parse.c \
 			ft_print.c \
 			ft_pass.c \
 			ft_open_path2.c \
+			ft_exec.c \
 			main.c
 
 OBJS	=	$(SRCS:.c=.o)

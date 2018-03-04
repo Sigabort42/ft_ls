@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 18:34:15 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/28 17:09:00 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/04 19:39:19 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct		s_env
 	short			flags;
 	char			*path;
 	char			*path_file;
-	int			i_file;
+	int				i_file;
 	t_liste			*lst_first;
 	t_liste			*lst_last;
 }					t_env;
@@ -77,6 +77,7 @@ void				ft_tri(t_env *env, int tri);
 void				ft_print_error(char *path);
 char				*ft_print(char *path, int i);
 int					ft_pass(t_env *env, int *flg);
+void				ft_exec(t_env *env, char **avt);
 int					ft_open_path2(t_env *env, char *av, DIR *dr,
 						struct dirent *readir);
 void				ft_print_file(t_env *env, struct dirent *readir,
