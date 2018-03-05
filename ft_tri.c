@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:41:04 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/05 19:06:58 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/05 19:14:08 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ void		ft_tri(t_env *env, int tri)
 	t_liste	*tmp;
 	int		i;
 
-	if ((i = ft_listecount(env->lst_first) > 1) && tri == 0)
+	i = 0;
+	if (((i = ft_listecount(env->lst_first)) > 1) && tri == 0)
 	{
 		tmp = env->lst_first->next;
 		while (tmp->next)
