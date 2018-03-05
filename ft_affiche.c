@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:45 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/04 19:49:18 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/05 17:45:32 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,18 @@ void		ft_affiche(t_env *env, int tri, char *av)
 {
 	t_liste	*tmp;
 	int		total;
+	DIR		*dr;
 
 	total = 0;
 	if (!env->lst_first)
 		exit(EXIT_FAILURE);
-	if (env->i_file > 1 && !(env->flags & (1 << 2)) && opendir(av))
+	if (env->i_file > 1 && !(env->flags & (1 << 2)) && (dr = opendir(av)))
+	{
 		ft_printf("%s:\n", av);
-	if (env->flags & (1 << 1) && env->lst_first != env->lst_last)
+		closedir(dr);
+	}
+	if (env->flags & (1 << 1) && env->lst_first != env->lst_last &&
+		!(env->s.st_mode & S_IXGRP))
 	{
 		tmp = env->lst_first;
 		while (tmp)
@@ -78,5 +83,4 @@ void		ft_affiche(t_env *env, int tri, char *av)
 		ft_printf("total %d \n", total);
 	}
 	ft_affiche2(env, tri);
-	ft_putstr("\n");
 }

@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/27 16:34:10 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/28 18:30:19 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/05 13:27:43 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ void		ft_print_file(t_env *env, struct dirent *readir, char *path)
 	ft_stock(readir, path);
 	env->pass = getpwuid(env->s.st_uid);
 	env->grp = getgrgid(env->s.st_gid);
+	env->path_file = ft_strdup(path);
 	env->lst_first = ft_listenew(env, readir);
 	env->lst_last = env->lst_first;
 	ft_affiche(env, 0, path);
 	ft_free_node(&env->lst_first);
 	free(readir);
+	free(env->path_file);
 }

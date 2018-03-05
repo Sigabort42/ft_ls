@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/17 18:34:15 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/05 19:05:49 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/05 16:31:34 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void				ft_affiche(t_env *env, int tri, char *av);
 void				ft_free_lst(t_env *env);
 void				ft_free_node(t_liste **node);
 void				ft_tri(t_env *env, int tri);
-void				ft_tri_t_22(t_env *env);
 void				ft_tri_liste_ascii(t_list **lst);
 void				ft_tri_liste_t(t_list **lst);
 void				ft_print_error(char *path);

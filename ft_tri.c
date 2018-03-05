@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:41:04 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/02/27 17:25:59 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/05 19:06:58 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,19 @@ static void	ft_tri_t2(t_env *env)
 static int	ft_tri_t_split(t_env *env, t_liste **tmp_prev,
 							t_liste **tmp_next, t_liste **tmp)
 {
-	if (!(*tmp)->prev)
+	if (*tmp && (*tmp_next)->next)
 	{
-		env->lst_first = *tmp_next;
-		(*tmp)->next = (*tmp_next)->next;
-		(*tmp_next)->next->prev = *tmp;
-		(*tmp)->prev = *tmp_next;
-		(*tmp_next)->next = *tmp;
-		(*tmp_next)->prev = *tmp_prev;
-		*tmp = env->lst_first;
-		return (1);
+		if (!(*tmp)->prev)
+		{
+			env->lst_first = *tmp_next;
+			(*tmp)->next = (*tmp_next)->next;
+			(*tmp_next)->next->prev = *tmp;
+			(*tmp)->prev = *tmp_next;
+			(*tmp_next)->next = *tmp;
+			(*tmp_next)->prev = *tmp_prev;
+			*tmp = env->lst_first;
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -106,8 +109,9 @@ static void	ft_tri2(t_liste **tmp, t_env *env)
 void		ft_tri(t_env *env, int tri)
 {
 	t_liste	*tmp;
+	int		i;
 
-	if (tri == 0 && ft_listecount(env->lst_first) > 1)
+	if ((i = ft_listecount(env->lst_first) > 1) && tri == 0)
 	{
 		tmp = env->lst_first->next;
 		while (tmp->next)
@@ -118,6 +122,8 @@ void		ft_tri(t_env *env, int tri)
 				tmp = tmp->next;
 		}
 	}
-	else if (tri == 1)
+	else if (tri == 1 && i > 2)
 		ft_tri_t(env);
+	else if (tri == 1)
+		ft_tri_t_22(env);
 }

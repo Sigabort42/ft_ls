@@ -6,59 +6,38 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/25 14:15:49 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/04 21:32:11 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/05 18:28:51 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
 
-static void		ft_tri_liste2(t_list *tmp, t_list **lst)
+static void		ft_tri_liste(t_list **lst, t_env *env, int tri)
 {
-	t_list		*addr;
-
-	if (tmp && tmp->next && ft_strcmp(tmp->content, tmp->next->content) > 0)
-	{
-		addr = tmp->next;
-		tmp->next = addr->next;
-		addr->next = tmp;
-		*lst = addr;
-	}
+	if (env->flags & (1 << 4) && tri)
+		ft_tri_liste_t(lst);
+	else
+		ft_tri_liste_ascii(lst);
 }
 
-static void		ft_tri_liste(t_list **lst)
-{
-	t_list		*tmp;
-	t_list		*addr;
-
-	tmp = *lst;
-	while (tmp && tmp->next && tmp->next->next)
-	{
-		while (ft_strcmp(tmp->next->content, tmp->next->next->content) > 0)
-		{
-			addr = tmp->next->next;
-			tmp->next->next = addr->next;
-			addr->next = tmp->next;
-			tmp->next = addr;
-			tmp = *lst;
-		}
-		if (ft_strcmp(tmp->content, tmp->next->content) > 0)
-		{
-			addr = tmp->next;
-			tmp->next = addr->next;
-			addr->next = tmp;
-			*lst = addr;
-		}
-		else
-			tmp = tmp->next;
-	}
-	ft_tri_liste2(tmp, lst);
-}
-
-static void		ft_tri_params2(char **avt, t_list *lst, int *i)
+static void		ft_tri_params2(char **avt, t_list *lst, int *i, t_env *env)
 {
 	t_list		*tmp;
 
 	tmp = lst;
+	if (env->flags & (1 << 3))
+	{
+		*i = *i + ft_lstcount(lst);
+		avt[*i] = 0;
+		while (tmp)
+		{
+			*i = *i - 1;
+			avt[*i] = ft_strdup(tmp->content);
+			tmp = tmp->next;
+		}
+		*i = ft_lstcount(lst);
+		return ;
+	}
 	while (tmp)
 	{
 		avt[*i] = ft_strdup(tmp->content);
@@ -86,12 +65,12 @@ static char		**ft_tri_params(char **av, int *i, t_env *env)
 			ft_lstpushback(&lst_dir, ft_lstnew(av[*i], 1));
 		*i = *i + 1;
 	}
-	(lst_file) ? ft_tri_liste(&lst_file) : 0;
-	(lst_dir) ? ft_tri_liste(&lst_dir) : 0;
+	(lst_file) ? ft_tri_liste(&lst_file, env, 0) : 0;
+	(lst_dir) ? ft_tri_liste(&lst_dir, env, 1) : 0;
 	(!(avt = (char **)malloc(sizeof(char*) * (*i + 1)))) ? exit(1) : 0;
 	*i = 0;
-	ft_tri_params2(avt, lst_file, i);
-	ft_tri_params2(avt, lst_dir, i);
+	ft_tri_params2(avt, lst_file, i, env);
+	ft_tri_params2(avt, lst_dir, i, env);
 	env->i_file = ft_lstcount(lst_dir);
 	ft_free_lst_libft(lst_file, lst_dir);
 	return (avt);

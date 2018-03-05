@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exec.c                                          :+:      :+:    :+:   */
+/*   ft_tri_t_22.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/04 19:36:04 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/05 17:23:34 by elbenkri         ###   ########.fr       */
+/*   Created: 2018/03/05 18:57:41 by elbenkri          #+#    #+#             */
+/*   Updated: 2018/03/05 19:07:52 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_ls.h"
 
-void		ft_exec(t_env *env, char **avt)
+void	ft_tri_t_22(t_env *env)
 {
-	int		i;
+	t_liste	*tmp_next;
+	t_liste	*tmp;
 
-	i = 0;
-	while (avt[i])
+	tmp = env->lst_first;
+	if (tmp->timestamp_m < tmp->next->timestamp_m)
 	{
-		env->path = ft_strdup(avt[i]);
-		ft_open_path(env, avt[i++], 0);
-		free(env->path);
-		free(avt[i - 1]);
-		if (avt[i])
-			ft_putstr("\n");
+		tmp_next = env->lst_first->next;
+		tmp_next->prev = 0;
+		tmp_next->next = tmp;
+		tmp->prev = tmp_next;
+		tmp->next = 0;
+		env->lst_first = tmp_next;
+		env->lst_last = tmp;
 	}
 }

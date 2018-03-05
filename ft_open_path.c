@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/04 20:09:26 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/05 13:26:25 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void			ft_traitement(char **path_tmp, char *av,
 	{
 		(ft_strstr(*path_tmp, "/..")) ? free(*path_tmp) : 0;
 		*path_tmp = ft_print(av, 0);
-		ft_printf("%s/%s :\n", *path_tmp, env->lst_first->path_name);
+		ft_printf("\n%s/%s :\n", *path_tmp, env->lst_first->path_name);
 	}
 	else
 	{
