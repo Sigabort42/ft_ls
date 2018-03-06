@@ -14,7 +14,7 @@ NAME	=	ft_ls
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror -g3
+CFLAGS	=	-Wall -Wextra -Werror
 
 SRCS	=	ft_parse.c \
 			ft_open_path.c \
