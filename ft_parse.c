@@ -67,7 +67,7 @@ int			ft_parse(char **av, t_env *env, int argc)
 				return (i);
 			while (av[i][j] && av[i][j] != ' ')
 			{
-				if (!ft_strncmp(av[i], "--", 2))
+				if (!ft_strncmp(av[i], "--", 3))
 					return (i + 1);
 				(!(c = ft_strchr(env->flags_stock, av[i][++j]))) ?
 					ft_affiche_erreur(av[i][j], argc) : ft_flags_bit(c[0], env);
