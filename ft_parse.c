@@ -44,9 +44,9 @@ static void	ft_flags_bit(char c, t_env *env)
 static void	ft_affiche_erreur(char c, int argc)
 {
 	(void)argc;
-	ft_putstr("ls: illegal option -- ");
+	ft_putstr("ft_ls: illegal option -- ");
 	write(1, &c, 1);
-	ft_putstr("\nusage: ls [-adfgGlrRtui] [file ...]\n");
+	ft_putstr("\nusage: ft_ls [-adfgGlrRtui] [file ...]\n");
 	exit(EXIT_FAILURE);
 }
 
