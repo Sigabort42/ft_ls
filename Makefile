@@ -6,7 +6,7 @@
 #    By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/01/31 13:03:51 by elbenkri          #+#    #+#              #
-#    Updated: 2018/03/05 19:05:29 by elbenkri         ###   ########.fr        #
+#    Updated: 2018/03/08 16:03:01 by elbenkri         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -14,7 +14,7 @@ NAME	=	ft_ls
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror -g3
+CFLAGS	=	-Wall -Wextra -Werror
 
 SRCS	=	ft_parse.c \
 			ft_open_path.c \
@@ -36,6 +36,7 @@ SRCS	=	ft_parse.c \
 			ft_exec.c \
 			ft_tri_liste2.c \
 			ft_tri_t_22.c \
+			ft_tri_r.c \
 			main.c
 
 OBJS	=	$(SRCS:.c=.o)

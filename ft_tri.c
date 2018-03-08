@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/16 16:41:04 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/05 19:14:08 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/08 16:23:45 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,4 +127,6 @@ void		ft_tri(t_env *env, int tri)
 		ft_tri_t(env);
 	else if (tri == 1)
 		ft_tri_t_22(env);
+	if (env->flags & (1 << 3))
+		ft_tri_r(env);
 }

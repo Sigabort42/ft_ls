@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:34 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/05 13:26:25 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/08 15:19:38 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ void				ft_open_path(t_env *env, char *av, t_liste *tmp)
 			ft_cible_dir(env);
 			if (env->lst_first && env->lst_first->law[0] == 'd' &&
 			env->lst_first->size_lnk >= 2 &&
-			ft_strcmp(env->lst_first->path_name, ".."))
+			ft_strcmp(env->lst_first->path_name, "..") &&
+			ft_strcmp(env->lst_first->path_name, "."))
 			{
 				ft_traitement(&path_tmp, av, env, 1);
 				tmp = env->lst_first;

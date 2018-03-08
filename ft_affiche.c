@@ -6,7 +6,7 @@
 /*   By: elbenkri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/31 13:03:45 by elbenkri          #+#    #+#             */
-/*   Updated: 2018/03/05 17:45:32 by elbenkri         ###   ########.fr       */
+/*   Updated: 2018/03/08 16:25:32 by elbenkri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ static void	ft_affiche2(t_env *env, int tri)
 {
 	t_liste	*tmp;
 
-	tmp = (tri == 0) ? env->lst_first : env->lst_last;
-	tmp = ((env->flags & (1 << 0)) || env->flags & (1 << 6) ||
-	env->flags & (1 << 3) || env->lst_first == env->lst_last) ? tmp : tmp->next;
+	(void)tri;
+	tmp = env->lst_first;
 	while (tmp)
 	{
-		if (!(env->flags & (1 << 0)) && tmp->path_name[0] == '.')
+		if (!(env->flags & (1 << 0)) && !(env->flags & (1 << 6)) && tmp->path_name[0] == '.')
 		{
-			tmp = (tri == 0) ? tmp->next : tmp->prev;
+			tmp = tmp->next;
 			continue;
 		}
 		if (env->flags & (1 << 10))
@@ -53,7 +52,7 @@ static void	ft_affiche2(t_env *env, int tri)
 			ft_flags_a(tmp);
 		else
 			ft_affiche3(env, tmp);
-		tmp = (tri == 0) ? tmp->next : tmp->prev;
+		tmp = tmp->next;
 	}
 }
 
