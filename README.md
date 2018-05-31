@@ -1,2 +1,2 @@
 # ft_ls
-Commande ls du terminal bash Unix/Linux 
+Commande ls du shell Unix/Linux 
